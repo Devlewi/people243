@@ -1432,7 +1432,7 @@ export default function RootLayout({
                     </div>
                   </div>
                   <div className="copyright white-title">
-                    © 2025 Copyright People237.com ©, All Rights Reserved. 
+                    © 2025 Copyright People243.com ©, All Rights Reserved. 
                      | <Link href={'/mentions-legales'} style={{color:"rgb(10 153 219)"}}>Mentions Légales</Link>{" "}                      
                      
                   </div>
