@@ -1,0 +1,260 @@
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useState,  } from "react";
+import SidebarUnHome from "./SidebarUnHome";
+import TransitionPage from "./TransitionPage";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale"; // Pour la langue française
+
+
+
+interface CategoryContentProps {
+  sidebarData: any;
+  categoryPosts: any[];
+  categoryName: string;
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+  };
+}
+
+const CategoryContent = ({
+  sidebarData,
+  categoryPosts,
+  categoryName,
+  pagination,
+}: CategoryContentProps) => {
+  const { currentPage, totalPages } = pagination;
+  const [loading, setLoading] = useState(false); // Change loading state
+
+  // Fonction pour gérer le changement de page
+  const handlePageChange = () => {
+    setLoading(true); // Activer le loading avant de charger les articles
+    // Simuler une récupération de données (remplacez cela par la logique réelle de récupération des articles)
+    setTimeout(() => {
+      setLoading(false); // Fin du chargement
+    }, 1500); // Ajustez le délai selon la durée réelle du chargement
+  };
+
+  // Générer les liens de pagination
+  const paginationLinks = [];
+  const startPage = Math.max(1, currentPage - 2);
+  const endPage = Math.min(totalPages, currentPage + 2);
+
+  if (currentPage > 3) paginationLinks.push(1); // Ajouter la première page si la page actuelle est supérieure à 3
+  if (currentPage > 4) paginationLinks.push("..."); // Ajouter les ellipses si nécessaire
+
+  for (let i = startPage; i <= endPage; i++) {
+    paginationLinks.push(i);
+  }
+
+  if (currentPage < totalPages - 2) paginationLinks.push("..."); // Ajouter les ellipses si nécessaire
+  if (currentPage < totalPages - 1) paginationLinks.push(totalPages); // Ajouter la dernière page
+
+  return (
+    <>
+      <div
+        data-elementor-type="wp-page"
+        data-elementor-id={6}
+        className="elementor elementor-6"
+      >
+        <br />
+        <section
+          className="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-586c5c1 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+          data-id="586c5c1"
+          data-element_type="section"
+        >
+          <div className="elementor-container elementor-column-gap-no">
+            <div
+              className="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-9921d67 main-content"
+              data-id="9921d67"
+              data-element_type="column"
+            >
+              <div className="elementor-widget-wrap elementor-element-populated">
+                <div
+                  className="elementor-element elementor-element-4fcfe03 elementor-widget elementor-widget-smartmag-postslist"
+                  data-id="4fcfe03"
+                  data-element_type="widget"
+                  data-widget_type="smartmag-postslist.default"
+                >
+                  <div className="elementor-widget-container">
+                    <section
+                      className="block-wrap block-posts-list block-sc mb-none"
+                      data-id={9}
+                    >
+                      <div className="block-head block-head-c is-left">
+                        <h4 className="heading" style={{ fontSize: 25 }}>
+                          <span className="color">
+                            <i
+                              className="typcn typcn-folder"
+                              style={{ fontSize: 30 }}
+                            />{" "}
+                            {categoryName}
+                          </span>
+                        </h4>
+                      </div>
+                      <div className="block-content">
+                      {loading ? (
+<>
+<TransitionPage/>
+</>
+
+) : (
+  <div className="loop loop-grid loop-grid-base grid grid-2 md:grid-2 xs:grid-1">
+    {/* Affichage des articles */}
+    {categoryPosts.map((post: any) => (
+      <article key={post.id} className="l-post grid-post grid-base-post">
+        <div className="media">
+          <Link
+            href={`/${post.slug}`}
+            className="image-link media-ratio ratio-16-9"
+            title={post.title}
+          >
+            <Image
+              src={post.featured_image || "default-image.jpg"}
+              alt={post.title}
+              layout="intrinsic"
+              width={377}
+              height={377}
+              objectFit="cover"
+            />
+          </Link>
+          <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
+            <Link
+              href="#"
+              className="category term-color-3"
+              rel="category"
+              tabIndex={-1}
+            >
+              {post.views} vues
+            </Link>
+          </span>
+        </div>
+        <div className="content">
+          <div className="post-meta post-meta-a has-below">
+            <h2 className="is-title post-title">
+              <Link href={`/${post.slug}`} className="post-title-2">
+                {post.title}
+              </Link>
+            </h2>
+            <div className="post-meta-items meta-below">
+                      <span className="meta-item post-author">
+                        <span className="by">
+                          Le{" "}
+                          {format(
+                            new Date(post.date_published),
+                            "d MMMM yyyy",
+                            {
+                              locale: fr,
+                            }
+                          )}{" "}
+                          par{" "}
+                        </span>{" "}
+                        <a href="#" title="Posts by Shane Doe" rel="author">
+                          <i
+                            className="typcn typcn-user"
+                            style={{
+                              fontSize: 15,
+                              color: "gray",
+                            }}
+                          />{" "}
+                          {post.author}
+                        </a>
+                      </span>
+                    </div>
+          </div>
+          <div className="excerpt">
+            <p>{post.excerpt}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+)}
+                        
+                      </div>
+                    </section>
+
+                    {/* Animation de chargement */}
+                    
+
+
+                    {/* Pagination */}
+                    <br />
+                    <nav
+                      className="main-pagination pagination-numbers"
+                      data-type="numbers"
+                    >
+                      {currentPage > 1 && (
+                        <Link
+                          href={`?page=${currentPage - 1}`}
+                          className="prev page-numbers"
+                          onClick={() => handlePageChange(currentPage - 1)}
+                        >
+                          <span className="visuallyhidden">Previous</span>
+                          <i className="tsi tsi-angle-left" />
+                        </Link>
+                      )}
+
+                      {/* Pagination Links */}
+                      {paginationLinks.map((page, index) => (
+                        <span key={index}>
+                          {page === "..." ? (
+                            <span className="page-numbers dots">...</span>
+                          ) : (
+                            <Link
+                              href={`?page=${page}`}
+                              className={`page-numbers ${
+                                currentPage === page ? "current" : ""
+                              }`}
+                              onClick={() => handlePageChange(page)}
+                            >
+                              {page}
+                            </Link>
+                          )}
+                        </span>
+                      ))}
+
+                      {currentPage < totalPages && (
+                        <Link
+                          href={`?page=${currentPage + 1}`}
+                          className="next page-numbers"
+                          onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                          <span className="visuallyhidden">Next</span>
+                          <i className="tsi tsi-angle-right" />
+                        </Link>
+                      )}
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-ca6b821 main-sidebar main-sidebar ts-sticky-col"
+              data-id="ca6b821"
+              data-element_type="column"
+            >
+              <div className="elementor-widget-wrap elementor-element-populated">
+                <div
+                  className="elementor-element elementor-element-a297ad7 elementor-widget elementor-widget-smartmag-highlights"
+                  data-id="a297ad7"
+                  data-element_type="widget"
+                  data-widget_type="smartmag-highlights.default"
+                >
+                  <div className="elementor-widget-container">
+                    {/* Sidebar Dynamique */}
+                    <SidebarUnHome articlesidebarunhome={sidebarData} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+};
+
+export default CategoryContent;

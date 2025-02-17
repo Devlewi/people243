@@ -1,0 +1,1419 @@
+/* eslint-disable @next/next/inline-script-id */
+"use client";
+import { useEffect } from "react";
+//import { useEffect } from "react";
+import "./globals.css";
+import "bootstrap/dist/css/bootstrap-grid.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
+import Script from "next/script";
+import Image from "next/image";
+import FeaturedGrid from "./components/FeaturedGrid";
+//import $ from "jquery"; // Importer jQuery directement
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+
+  useEffect(() => {
+    // Remplacer la classe 'bbp-no-js' par 'bbp-js' lorsque le script est exécuté
+    document.body.className = document.body.className.replace(
+      "bbp-no-js",
+      "bbp-js"
+    );
+  }, []); // Le tableau vide garantit que ce code s'exécute uniquement au montage du composant
+
+  useEffect(() => {
+    // Fonction lazyloadRunObserver
+    const lazyloadRunObserver = () => {
+      // Sélectionne les éléments à lazyloader
+      const lazyloadBackgrounds = document.querySelectorAll(
+        ".e-con.e-parent:not(.e-lazyloaded)"
+      );
+
+      // Crée un nouvel IntersectionObserver pour observer les éléments
+      const lazyloadBackgroundObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              let lazyloadBackground = entry.target;
+              if (lazyloadBackground) {
+                lazyloadBackground.classList.add("e-lazyloaded"); // Ajoute la classe une fois l'élément visible
+              }
+              lazyloadBackgroundObserver.unobserve(entry.target); // Arrête l'observation de cet élément
+            }
+          });
+        },
+        { rootMargin: "200px 0px 200px 0px" }
+      ); // Définit la marge de déclenchement de l'observation
+
+      // Applique l'observer sur chaque élément
+      lazyloadBackgrounds.forEach((lazyloadBackground) => {
+        lazyloadBackgroundObserver.observe(lazyloadBackground);
+      });
+    };
+
+    // Écoute les événements DOMContentLoaded et elementor/lazyload/observe
+    const events = ["DOMContentLoaded", "elementor/lazyload/observe"];
+
+    events.forEach((event) => {
+      document.addEventListener(event, lazyloadRunObserver);
+    });
+
+    // Nettoyage lorsque le composant est démonté
+    return () => {
+      events.forEach((event) => {
+        document.removeEventListener(event, lazyloadRunObserver);
+      });
+    };
+  }, []); // Ce code s'exécute une seule fois après le montage du composant
+
+  useEffect(() => {
+    // Définir la configuration globale après le montage du composant
+    window.BunyadLazyConf = { type: "smart" };
+
+    // Vous pouvez ajouter d'autres logiques si nécessaire pour ce script.
+  }, []); // Ce code s'exécute une seule fois après le montage du composant
+
+  useEffect(() => {
+    const BunyadSchemeKey = "bunyad-scheme-6";
+
+    // Vérifier si le schéma (theme) est sauvegardé dans localStorage
+    const scheme = localStorage.getItem(BunyadSchemeKey);
+
+    if (scheme) {
+      const d = document.documentElement;
+      const c = d.classList;
+
+      // Sauvegarder la classe d'origine
+      d.dataset.origClass = c;
+
+      // Appliquer ou supprimer les classes en fonction du thème
+      if (scheme === "dark") {
+        c.remove("s-light", "site-s-light");
+        c.add("site-s-dark", "s-dark");
+      } else {
+        c.remove("s-dark", "site-s-dark");
+        c.add("site-s-light", "s-light");
+      }
+    }
+  }, []); // Le tableau vide assure que le code s'exécute uniquement au montage de la page
+
+  return (
+    <html lang="fr">
+      <head>
+        <>
+          {/* Typicons CSS */}
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css"
+            rel="stylesheet"
+          />
+
+          {/* Favicon */}
+          <link
+            href="https://people237.com/wp-content/themes/people237/assets/img/favicon.png"
+            rel="Shortcut Icon"
+          />
+
+          {/* Bootstrap CSS */}
+
+          {/*}
+        <link 
+          rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+        />
+*/}
+
+          <Script
+            id="jquery-core-js"
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            strategy="beforeInteractive" // Charge ce script avant l'interaction avec d'autres scripts
+          />
+
+          {/* Debloat Configuration Script */}
+          <Script>
+            {`
+          var debloatConfig = { "cssDelayType": "interact", "jsDelayType": "interact", "jsDelayMax": "" };
+        `}
+          </Script>
+
+          {/* Script for modifying document ready state */}
+          <Script
+            type="text/javascript"
+            data-cfasync="false"
+            dangerouslySetInnerHTML={{
+              __html: `
+            "use strict"; (() => {
+              if ([...document.querySelectorAll("script[defer]")].length && "complete" !== document.readyState) {
+                let t = document.readyState;
+                Object.defineProperty(document, "readyState", { configurable: !0, get() { return t }, set(e) { return t = e } });
+                let e = !1;
+                document.addEventListener("DOMContentLoaded", () => { t = "interactive", e = !0, document.dispatchEvent(new Event("readystatechange")), e = !1 });
+                document.addEventListener("readystatechange", () => { e || "interactive" !== t || (t = "complete") });
+              }
+            })();
+          `,
+            }}
+          />
+
+          {/* Delay Load JS Script */}
+          <Script
+            type="text/javascript"
+            data-cfasync="false"
+            src="wp-content/plugins/debloat/inc/delay-load/js/delay-load.min1efe.js?ver=1.2.8"
+          />
+
+          {/*
+<Script
+        id="jquery-migrate-js"
+        src="/wp-content/cache/debloat/js/f51aaf898aa1bdeec30dcec5314c2555.js"
+        strategy="lazyOnload"
+      />
+
+      <script 
+            type="text/javascript" 
+            id="smartmag-lazyload-js"
+            src="wp-content/cache/debloat/js/e708814815c5acce940a969178d6737e.js"
+            defer
+          />          
+*/}
+
+          {/* Magnific Popup */}
+          <Script
+            type="text/javascript"
+            id="magnific-popup-js"
+            src="wp-content/cache/debloat/js/74c4267c24840851a2256900b3df486b.js"
+            defer
+          />
+
+          {/* Theia Sticky Sidebar */}
+          <Script
+            type="text/javascript"
+            id="theia-sticky-sidebar-js"
+            src="wp-content/cache/debloat/js/bec7ef33f65e3d23332c9bb50b07ff9a.js"
+            defer
+          />
+
+          {/* Smartmag Theme JS */}
+          <Script
+            type="text/javascript"
+            id="smartmag-theme-js"
+            src="wp-content/cache/debloat/js/bf6586edc4c61123d30261f79fd567fc.js"
+            defer
+          />
+
+          {/* Micro Modal */}
+          <Script
+            type="text/javascript"
+            id="micro-modal-js"
+            src="wp-content/cache/debloat/js/4ab3556eed23928ee2b4d00f0e3083d1.js"
+            defer
+          />
+
+          <Script id="smartmag-lazy-inline-js-after" strategy="lazyOnload">
+            {`
+        /* <![CDATA[ */
+        /**
+         * @copyright ThemeSphere
+         * @preserve
+         */
+        var BunyadLazy = {}; 
+        BunyadLazy.load = function () { 
+          function loadImage(element, callback) { 
+            var attributes = {}; 
+            if (element.dataset.bgset && element.dataset.sizes) {
+              attributes.sizes = element.dataset.sizes;
+              attributes.srcset = element.dataset.bgset;
+            } else {
+              attributes.src = element.dataset.bgsrc;
+            }
+            
+            function setRatio(element) {
+              var ratio = element.dataset.ratio; 
+              if (ratio > 0) { 
+                const parent = element.parentElement; 
+                if (parent.classList.contains("media-ratio")) { 
+                  const style = parent.style; 
+                  if (!style.getPropertyValue("--a-ratio")) {
+                    style.paddingBottom = 100 / ratio + "%"; 
+                  }
+                } 
+              } 
+            }
+            setRatio(element);
+            
+            var img = document.createElement("img"); 
+            for (let key in attributes) {
+              img.setAttribute(key, attributes[key]); 
+            }
+
+            img.onload = function () { 
+              var backgroundUrl = "url('" + (img.currentSrc || img.src) + "')";
+              var style = element.style; 
+              if (style.backgroundImage !== backgroundUrl) {
+                requestAnimationFrame(() => { 
+                  style.backgroundImage = backgroundUrl;
+                  if (callback) callback(); 
+                });
+              }
+              img.onload = null;
+              img.onerror = null;
+              img = null;
+            };
+
+            img.onerror = img.onload;
+            if (img.complete && img.naturalWidth > 0 && img.onload) {
+              img.onload(); 
+            }
+          }
+          
+          function processElement(element) { 
+            if (!element.dataset.loaded) {
+              loadImage(element, () => {
+                document.dispatchEvent(new Event("lazyloaded"));
+                element.dataset.loaded = 1; 
+              });
+            }
+          }
+          
+          function onWindowLoad(callback) { 
+            if (document.readyState === "complete") {
+              callback(); 
+            } else {
+              window.addEventListener("load", callback);
+            }
+          }
+          
+          return { 
+            initEarly: function () { 
+              const processAll = () => { 
+                document.querySelectorAll(".img.bg-cover:not(.lazyload)").forEach(processElement);
+              }; 
+              
+              if (document.readyState !== "complete") { 
+                const interval = setInterval(processAll, 150);
+                onWindowLoad(() => { 
+                  processAll();
+                  clearInterval(interval); 
+                });
+              } else {
+                processAll();
+              }
+            }, 
+            callOnLoad: onWindowLoad, 
+            initBgImages: function (callback) { 
+              if (callback) {
+                onWindowLoad(() => {
+                  document.querySelectorAll(".img.bg-cover").forEach(processElement);
+                });
+              }
+            }, 
+            bgLoad: loadImage 
+          }; 
+        }();
+        BunyadLazy.load.initEarly();
+        /* ]]> */
+      `}
+          </Script>
+
+          {/*
+
+    <Script
+        id="jquery-core-js"
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        strategy="beforeInteractive" 
+      />
+
+      
+
+ */}
+        </>
+      </head>
+      <body className="home page-template page-template-page-templates page-template-no-wrapper page-template-page-templatesno-wrapper-php page page-id-6 theme-smart-mag woocommerce-no-js no-sidebar has-lb has-lb-sm ts-img-hov-fade has-sb-sep layout-normal elementor-default elementor-kit-802 elementor-page elementor-page-6">
+        {/* Script pour gérer le thème */}
+        <Script id="bunyad-scheme-script" strategy="afterInteractive">
+          {`
+          var BunyadSchemeKey = 'bunyad-scheme-6';
+          (() => {
+            const d = document.documentElement;
+            const c = d.classList;
+            var scheme = localStorage.getItem(BunyadSchemeKey);
+
+            if (scheme) {
+              d.dataset.origClass = c;
+              scheme === 'dark' 
+                ? c.remove('s-light', 'site-s-light') 
+                : c.remove('s-dark', 'site-s-dark');
+              c.add('site-s-' + scheme, 's-' + scheme);
+            }
+          })();
+        `}
+        </Script>
+
+        {/*<div className="main-wrap">{children}</div>*/}
+
+        <>
+          {/* .main-wrap */}
+          <div className="main-wrap">
+            <div className="off-canvas-backdrop" />
+            <div
+              className="mobile-menu-container off-canvas s-dark hide-widgets-sm"
+              id="off-canvas"
+            >
+              <div className="off-canvas-head">
+                <a href="#" className="close">
+                  <span className="visuallyhidden">Close Menu</span>
+                  <i className="tsi tsi-times" />
+                </a>
+                <div className="ts-logo">
+                  <img
+                    className="logo-mobile logo-image"
+                    src="images/logo-people237.png"
+                    width={198}
+                    height={56}
+                    alt="SmartMag GoodNews"
+                  />
+                </div>
+              </div>
+              <div className="off-canvas-content">
+                <ul className="mobile-menu" />
+                <div className="off-canvas-widgets">
+                  <div
+                    id="smartmag-block-newsletter-2"
+                    className="widget ts-block-widget smartmag-widget-newsletter"
+                  >
+                    <div className="block">
+                      <div className="block-newsletter ">
+                        <div className="spc-newsletter spc-newsletter-b spc-newsletter-center spc-newsletter-sm">
+                          <div className="bg-wrap" />
+                          <div className="inner">
+                            <h3 className="heading">
+                              S'abonner à la Newsletter{" "}
+                            </h3>
+                            <div className="base-text message">
+                              <p>
+                                Recevez les dernières actualités directement
+                                dans votre boîte mail !
+                              </p>
+                            </div>
+                            <form
+                              method="post"
+                              action="https://exocrew.us2.list-manage.com/subscribe/post?u=80cb35f637e636563aeaa0499&id=77f92c609a"
+                              className="form fields-style fields-full"
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              <div className="main-fields">
+                                <p className="field-email">
+                                  <input
+                                    type="email"
+                                    name="EMAIL"
+                                    placeholder="Votre adresse email.."
+                                    required=""
+                                  />
+                                </p>
+                                <p className="field-submit">
+                                  <input
+                                    type="submit"
+                                    defaultValue="S'abonner"
+                                    style={{
+                                      backgroundColor: "#cd8d25 !important",
+                                    }}
+                                  />
+                                </p>
+                              </div>
+                              <p className="disclaimer">
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    name="privacy"
+                                    required=""
+                                  />
+                                  En vous inscrivant, vous acceptez nos
+                                  conditions générales et notre{" "}
+                                  <a href="#">politique </a> de confidentialité.{" "}
+                                </label>
+                              </p>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="spc-social-block spc-social spc-social-b smart-head-social">
+                  <a
+                    href="#"
+                    className="link service s-facebook"
+                    target="_blank"
+                    rel="nofollow noopener"
+                  >
+                    <i className="icon tsi tsi-facebook" />{" "}
+                    <span className="visuallyhidden">Facebook</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="link service s-twitter"
+                    target="_blank"
+                    rel="nofollow noopener"
+                  >
+                    <i className="icon tsi tsi-twitter" />{" "}
+                    <span className="visuallyhidden">X (Twitter)</span>
+                  </a>
+                  <a
+                    href="#"
+                    className="link service s-instagram"
+                    target="_blank"
+                    rel="nofollow noopener"
+                  >
+                    <i className="icon tsi tsi-instagram" />{" "}
+                    <span className="visuallyhidden">Instagram</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              className="smart-head smart-head-b smart-head-main"
+              id="smart-head"
+              data-sticky="auto"
+              data-sticky-type="smart"
+              data-sticky-full=""
+            >
+              <div className="smart-head-row smart-head-mid smart-head-row-3 s-dark smart-head-row-full">
+                <div className="inner wrap">
+                  <div className="items items-left ">
+                    <div className="spc-social-block spc-social spc-social-b smart-head-social">
+                      <a
+                        href="#"
+                        className="link service s-facebook"
+                        target="_blank"
+                        rel="nofollow noopener"
+                      >
+                        <i className="icon tsi tsi-facebook" />{" "}
+                        <span className="visuallyhidden">Facebook</span>
+                      </a>
+                      <a
+                        href="#"
+                        className="link service s-twitter"
+                        target="_blank"
+                        rel="nofollow noopener"
+                      >
+                        <i className="icon tsi tsi-twitter" />{" "}
+                        <span className="visuallyhidden">X (Twitter)</span>
+                      </a>
+                      <a
+                        href="#"
+                        className="link service s-instagram"
+                        target="_blank"
+                        rel="nofollow noopener"
+                      >
+                        <i className="icon tsi tsi-instagram" />{" "}
+                        <span className="visuallyhidden">Instagram</span>
+                      </a>
+                      <a
+                        href="#"
+                        className="link service s-vimeo"
+                        target="_blank"
+                        rel="nofollow noopener"
+                      >
+                        <i className="icon tsi tsi-vimeo" />{" "}
+                        <span className="visuallyhidden">Vimeo</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="items items-center ">
+                    <a
+                      href="index.html"
+                      title="SmartMag GoodNews"
+                      rel="home"
+                      className="logo-link ts-logo logo-is-image"
+                    >
+                      <h1>
+                        <img
+                          src="images/logo-people237.png"
+                          className="logo-image"
+                          alt="SmartMag GoodNews"
+                          srcSet="images/logo-people237.png"
+                          width={263}
+                          height={74}
+                        />
+                      </h1>
+                    </a>
+                  </div>
+
+                  {/*div class="items items-right ">
+
+						<a href="http://eepurl.com/hq-3Xb" class="ts-button ts-button-alt ts-button1" target="_blank"
+							rel="noopener">
+							Subscribe </a>
+
+
+						<a href="#auth-modal" class="auth-link has-icon">
+							<i class="icon tsi tsi-user-circle-o"></i>
+
+							<span class="label">Login</span>
+						</a>
+
+					</div*/}
+                </div>
+              </div>
+              <div className="smart-head-row smart-head-bot smart-head-row-3 s-dark has-center-nav smart-head-row-full">
+                <div className="inner wrap">
+                  <div className="items items-left ">
+                    <button
+                      className="offcanvas-toggle has-icon"
+                      type="button"
+                      aria-label="Menu"
+                    >
+                      <span className="hamburger-icon hamburger-icon-a">
+                        <span className="inner" />
+                      </span>
+                    </button>
+                  </div>
+                  <div className="items items-center ">
+                    <div className="nav-wrap">
+                      {/*menu desktop*/}
+                      <nav className="navigation navigation-main nav-hov-a">
+                        <ul id="menu-main-menu" className="menu">
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-home" /> People
+                            </a>
+                            <ul className="sub-menu">
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  Camer
+                                </a>
+                              </li>
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  International
+                                </a>
+                              </li>
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  Buzz
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-camera" /> Portraits
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-calendar" /> Events
+                            </a>
+                            <ul className="sub-menu">
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/1"
+                                >
+                                  Concerts
+                                </a>
+                              </li>
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/2"
+                                >
+                                  Découvertes
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-camera" /> Découverte
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-star" /> Bons plans
+                            </a>
+                            <ul className="sub-menu">
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  Restaurant
+                                </a>
+                              </li>
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  Party
+                                </a>
+                              </li>
+                              <li
+                                id="menu-item-4335"
+                                className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4335"
+                              >
+                                <a
+                                  target="_blank"
+                                  rel="noopener"
+                                  href="https://theme-sphere.com/demo/smartmag-landing/"
+                                >
+                                  Tourisme
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-star-outline" /> Top
+                              stars
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-world" /> Société
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-flag" /> Sports
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-image" /> Galerie Photos
+                            </a>
+                          </li>
+                          <li
+                            id="menu-item-4334"
+                            className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-4334"
+                          >
+                            <a href="#">
+                              <i className="typcn typcn-video" /> Vidéos
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                      {/*menu desktop*/}
+                    </div>
+                  </div>
+                  <div className="items items-right ">
+                    <div className="scheme-switcher has-icon-only">
+                      <a
+                        href="#"
+                        className="toggle is-icon toggle-dark"
+                        title="Switch to Dark Design - easier on eyes."
+                      >
+                        <i
+                          className="icon tsi tsi-moon"
+                          style={{ color: "#777" }}
+                        />
+                      </a>
+                      <a
+                        href="#"
+                        className="toggle is-icon toggle-light"
+                        title="Switch to Light Design."
+                      >
+                        <i className="icon tsi tsi-bright" />
+                      </a>
+                    </div>
+                    {/* <a
+              href="#"
+              className="search-icon has-icon-only is-icon"
+              title="Search"
+            >
+              <i className="tsi tsi-search" />
+            </a> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="smart-head smart-head-a smart-head-mobile"
+              id="smart-head-mobile"
+              data-sticky="mid"
+              data-sticky-type="smart"
+              data-sticky-full=""
+            >
+              <div className="smart-head-row smart-head-mid smart-head-row-3 s-dark smart-head-row-full">
+                <div className="inner wrap">
+                  <div className="items items-left ">
+                    <button
+                      className="offcanvas-toggle has-icon"
+                      type="button"
+                      aria-label="Menu"
+                    >
+                      <span className="hamburger-icon hamburger-icon-a">
+                        <span className="inner" />
+                      </span>
+                    </button>
+                  </div>
+                  <div className="items items-center ">
+                    <a
+                      href="index.html"
+                      title="SmartMag GoodNews"
+                      rel="home"
+                      className="logo-link ts-logo logo-is-image"
+                    >
+                      <span>
+                        <img
+                          className="logo-mobile logo-image"
+                          src="images/logo-people237.png"
+                          width={198}
+                          height={56}
+                          alt="SmartMag GoodNews"
+                        />
+                      </span>
+                    </a>
+                  </div>
+
+                  <div className="items items-right ">
+                    <a
+                      href="#"
+                      className="search-icon has-icon-only is-icon"
+                      title="Search"
+                    >
+                      <i className="tsi tsi-search" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="smart-head-row smart-head-bot s-dark smart-head-scroll-nav smart-head-row-full">
+                <div className="inner wrap">
+                  <div className="items items-left ">
+                    <div className="nav-wrap">
+                      {/*menu mobile*/}
+                      <nav className="navigation navigation-scroll nav-hov-b">
+                        <ul id="menu-scrolling-menu-mobile" className="menu">
+                          <li className="menu-item menu-item-has-children">
+                            <a href="#">
+                              <i className="typcn typcn-home" /> People
+                            </a>
+                            <ul className="sub-menu">
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Camer
+                                </a>
+                              </li>
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  International
+                                </a>
+                              </li>
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Buzz
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li className="menu-item">
+                            <a href="#">
+                              <i className="typcn typcn-camera" /> Portraits
+                            </a>
+                          </li>
+                          <li className="menu-item menu-item-has-children">
+                            <a href="#">
+                              <i className="typcn typcn-calendar" /> Events
+                            </a>
+                            <ul className="sub-menu">
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Concerts
+                                </a>
+                              </li>
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Découvertes
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li className="menu-item menu-item-has-children">
+                            <a href="#">
+                              <i className="typcn typcn-star" /> Bons plans
+                            </a>
+                            <ul className="sub-menu">
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Restaurant
+                                </a>
+                              </li>
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Party
+                                </a>
+                              </li>
+                              <li>
+                                <a target="_blank" rel="noopener" href="#">
+                                  Tourisme
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li className="menu-item">
+                            <a href="top">
+                              <i className="typcn typcn-star-outline" /> Top
+                              stars
+                            </a>
+                          </li>
+                          <li className="menu-item">
+                            <a href="#">
+                              <i className="typcn typcn-world" /> Société
+                            </a>
+                          </li>
+                          <li className="menu-item">
+                            <a href="#">
+                              <i className="typcn typcn-flag" /> Sports
+                            </a>
+                          </li>
+                          <li className="menu-item">
+                            <a href="#">
+                              <i className="typcn typcn-image" /> Galerie Photos
+                            </a>
+                          </li>
+                          <li className="menu-item">
+                            <a href="#">
+                              <i className="typcn typcn-video" /> Vidéos
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                      {/*menu mobile*/}
+                    </div>
+                  </div>
+                  <div className="items items-center empty"></div>
+                  <div className="items items-right empty"></div>
+                </div>
+              </div>
+            </div>
+            <div className="main-full">
+              <div
+                id="post-6"
+                className="page-content post-6 page type-page status-publish"
+              >
+                {/*<div className="main-wrap">{children}</div>*/}
+                {children}
+              </div>
+            </div>
+            <footer className="main-footer cols-gap-lg footer-bold s-dark">
+              <div className="upper-footer bold-footer-upper">
+                <div className="ts-contain wrap">
+                  <div className="widgets row cf">
+                    <div className="widget col-md-3 widget-about">
+                      <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                        <h5 className="heading" style={{ color: "#dc9000" }}>
+                          A Propos de Nous
+                        </h5>
+                      </div>
+                      <div className="inner ">
+                        <div className="image-logo">
+                          <img
+                            src="images/logo-people237.png"
+                            width={180}
+                            height={80}
+                            alt="About Us"
+                            srcSet="images/logo-people237.png"
+                          />
+                        </div>
+                        <div className="base-text about-text">
+                          <p>
+                            Découvrez en live l'actualité people en photos et
+                            vidéos. Toutes les news et actualités de stars, les
+                            meilleurs et les pires look de vos stars.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
+                      <div className="block">
+                        <section
+                          className="block-wrap block-posts-small block-sc mb-none"
+                          data-id={28}
+                        >
+                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                            <h5
+                              className="heading"
+                              style={{ color: "#dc9000" }}
+                            >
+                              People
+                            </h5>
+                          </div>
+                          <div className="block-content">
+                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Camer
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        International
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Buzz
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                      <br />
+                      <br />
+                      <section
+                        className="block-wrap block-posts-small block-sc mb-none"
+                        data-id={28}
+                      >
+                        <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                          <h5 className="heading" style={{ color: "#dc9000" }}>
+                            Events
+                          </h5>
+                        </div>
+                        <div className="block-content">
+                          <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                            <article className="l-post small-post small-a-post m-pos-left">
+                              <div className="content">
+                                <div className="post-meta post-meta-a post-meta-left has-below">
+                                  <h4 className="is-title post-title">
+                                    <a href="#" className="white-title">
+                                      <i className="typcn typcn-chevron-right" />{" "}
+                                      Concert
+                                    </a>
+                                  </h4>
+                                </div>
+                              </div>
+                            </article>
+                            <article className="l-post small-post small-a-post m-pos-left">
+                              <div className="content">
+                                <div className="post-meta post-meta-a post-meta-left has-below">
+                                  <h4 className="is-title post-title">
+                                    <a href="#" className="white-title">
+                                      <i className="typcn typcn-chevron-right" />{" "}
+                                      Festival
+                                    </a>
+                                  </h4>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
+                      <div className="block">
+                        <section
+                          className="block-wrap block-posts-small block-sc mb-none"
+                          data-id={28}
+                        >
+                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                            <h5
+                              className="heading"
+                              style={{ color: "#dc9000" }}
+                            >
+                              Découverte
+                            </h5>
+                          </div>
+                          <div className="block-content">
+                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Cinéma/art
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Cuisine
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Littérature
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Mode
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Santé – bien être
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
+                      <div className="block">
+                        <section
+                          className="block-wrap block-posts-small block-sc mb-none"
+                          data-id={28}
+                        >
+                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                            <h5
+                              className="heading"
+                              style={{ color: "#dc9000" }}
+                            >
+                              Bons Plans
+                            </h5>
+                          </div>
+                          <div className="block-content">
+                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Restaurant
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Party
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Tourisme
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                    <div className="widget col-md-3 ts-block-widget smartmag-widget-posts-small">
+                      <div className="block">
+                        <section
+                          className="block-wrap block-posts-small block-sc mb-none"
+                          data-id={28}
+                        >
+                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
+                            <h5
+                              className="heading"
+                              style={{ color: "#dc9000" }}
+                            >
+                              Nous Contacter
+                            </h5>
+                          </div>
+                          <div className="block-content">
+                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Immeuble Hibiscus Rue Technopark Fouda,
+                                        Yaoundé Cameroun
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        ci@cynomedia.com
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                              <article className="l-post small-post small-a-post m-pos-left">
+                                <div className="content">
+                                  <div className="post-meta post-meta-a post-meta-left has-below">
+                                    <h4 className="is-title post-title">
+                                      <a href="#" className="white-title">
+                                        <i className="typcn typcn-chevron-right" />{" "}
+                                        Tel: +237 6 78 82 04 04
+                                      </a>
+                                    </h4>
+                                  </div>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="lower-footer bold-footer-lower">
+                <div className="ts-contain inner">
+                  <div className="spc-social-block spc-social spc-social-b ">
+                    <a
+                      href="#"
+                      className="link service s-facebook"
+                      target="_blank"
+                      rel="nofollow noopener"
+                    >
+                      <i className="icon tsi tsi-facebook" />{" "}
+                      <span className="visuallyhidden">Facebook</span>
+                    </a>
+                    <a
+                      href="#"
+                      className="link service s-twitter"
+                      target="_blank"
+                      rel="nofollow noopener"
+                    >
+                      <i className="icon tsi tsi-twitter" />{" "}
+                      <span className="visuallyhidden">X (Twitter)</span>
+                    </a>
+                    <a
+                      href="#"
+                      className="link service s-instagram"
+                      target="_blank"
+                      rel="nofollow noopener"
+                    >
+                      <i className="icon tsi tsi-instagram" />{" "}
+                      <span className="visuallyhidden">Instagram</span>
+                    </a>
+                    <a
+                      href="#"
+                      className="link service s-pinterest"
+                      target="_blank"
+                      rel="nofollow noopener"
+                    >
+                      <i className="icon tsi tsi-pinterest-p" />{" "}
+                      <span className="visuallyhidden">Pinterest</span>
+                    </a>
+                  </div>
+                  <div className="links">
+                    <div className="menu-footer-links-container">
+                      <p style={{ color: "#dc9000", fontWeight: "bolder" }}>
+                        Les autres sites du Réseau:{" "}
+                      </p>
+                      <ul
+                        id="menu-footer-links"
+                        className="menu"
+                        style={{ justifyContent: "flex-start" }}
+                      >
+                        <li
+                          id="menu-item-352"
+                          className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-352"
+                        >
+                          <a
+                            href="index.html"
+                            aria-current="page"
+                            className="white-title"
+                          >
+                            <i className="typcn typcn-world" /> people225.com
+                          </a>
+                        </li>
+                        <li
+                          id="menu-item-354"
+                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-10 menu-item-354"
+                        >
+                          <a
+                            href="categorie-article.html"
+                            className="white-title"
+                          >
+                            <i className="typcn typcn-world" /> people223.com
+                          </a>
+                        </li>
+                        <li
+                          id="menu-item-355"
+                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-6 menu-item-355"
+                        >
+                          <a
+                            href="categorie-article.html"
+                            className="white-title"
+                          >
+                            <i className="typcn typcn-world" /> people228.com
+                          </a>
+                        </li>
+                        <li
+                          id="menu-item-357"
+                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-11 menu-item-357"
+                        >
+                          <a
+                            href="categorie-article.html"
+                            className="white-title"
+                          >
+                            <i className="typcn typcn-world" /> people229.com
+                          </a>
+                        </li>
+                        <li
+                          id="menu-item-353"
+                          className="menu-item menu-item-type-custom menu-item-object-custom menu-item-353"
+                        >
+                          <a href="#" className="white-title">
+                            <i className="typcn typcn-world" /> people243.com
+                          </a>
+                        </li>
+                        <li
+                          id="menu-item-356"
+                          className="menu-item menu-item-type-custom menu-item-object-custom menu-item-356"
+                        >
+                          <a href="#" className="white-title">
+                            <i className="typcn typcn-world" /> people224.com
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="copyright" className="white-title">
+                    © 2024 Copyright People237.com ©, All Rights Reserved. |
+                    Mentions Légales{" "}
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </div>
+          {/* .main-wrap */}
+        </>
+      </body>
+    </html>
+  );
+}

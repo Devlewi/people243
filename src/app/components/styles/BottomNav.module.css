@@ -1,0 +1,31 @@
+
+  .bottomNav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4px;
+    background-color: #151515;/*#fff*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bnTab {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Aligne les éléments au centre */
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .bnTab span {
+    font-size: 14px;
+    margin-top: 5px; /* Espace entre l'icône et le texte */
+  }
+  
+  .bnTab svg {
+    font-size: 24px;
+  }
+  

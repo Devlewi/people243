@@ -1,0 +1,1329 @@
+>> idées animations
+https://loading.io/css/
+
+
+* cpteur de visites
+* moteur de recherche
+
+
+https://github.com/coderzway/next-js-bottom-navigation-bar
+https://react-icons.github.io/react-icons/search/#q=whatsapp
+
+
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  images: {    
+    domains: ['people237.com'], // Ajoutez ici le domaine de votre image
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      // Désactiver la minification CSS
+      config.optimization.minimize = false;
+    }
+    return config;
+  },
+};
+
+export default nextConfig;
+
+
+
+
+
+
+
+
+
+
+echo "# people-frontend" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Devlewi/people-frontend.git
+git push -u origin main
+
+------
+
+// limiter les extensions des images uniquement au webp
+function restrict_image_uploads($mime_types) {
+    // Autoriser uniquement les fichiers webp
+    $mime_types = array(
+        'webp' => 'image/webp',
+        'pdf'  => 'application/pdf', // Autoriser PDF
+    );
+    return $mime_types;
+}
+add_filter('upload_mimes', 'restrict_image_uploads');
+
+
+
+// DEVELOPPEMENT APIs
+
+
+// 1. Création du CPT Slider
+function create_slide_cpt() {
+    $args = array(
+        'public' => true,
+        'label'  => 'Slides',
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true, // Active l'API REST pour ce CPT
+    );
+    register_post_type('slides', $args);
+}
+add_action('init', 'create_slide_cpt');
+
+// 2. Exposer les champs ACF dans l'API REST pour le CPT 'slides'
+function expose_acf_to_rest() {
+    register_rest_field('slides', 'button_text', array(
+        'get_callback' => function($data) {
+            return get_field('button_text', $data['id']); // Récupère le texte du bouton
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+
+    register_rest_field('slides', 'button_link', array(
+        'get_callback' => function($data) {
+            return get_field('button_link', $data['id']); // Récupère le lien du bouton
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+
+    register_rest_field('slides', 'alt_text', array(
+        'get_callback' => function($data) {
+            return get_field('alt_text', $data['id']); // Récupère l'attribut alt de l'image
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+
+    register_rest_field('slides', 'description', array(
+        'get_callback' => function($data) {
+            return get_field('description', $data['id']); // Récupère la description
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+    
+     register_rest_field('slides', 'featured_image_url', array(
+        'get_callback' => function ($data) {
+            $image_id = get_post_thumbnail_id($data['id']); // ID de l'image mise en avant
+            return $image_id ? wp_get_attachment_image_url($image_id, 'full') : null;
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+}
+add_action('rest_api_init', 'expose_acf_to_rest');
+
+// Personnaliser la réponse de l'API REST pour le CPT 'slides'
+// Personnaliser la réponse de l'API REST pour le CPT 'slides'
+
+
+
+// PARTIE API MOT DU PRESIDENT
+
+// option paramètre
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page(array(
+        'page_title'    => 'Options Accueil',
+        'menu_title'    => 'Options Accueil',
+        'menu_slug'     => 'options-accueil-du-site',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+}
+
+
+// Enregistrer un endpoint REST pour les options ACF
+/*
+add_action('rest_api_init', function () {
+
+    // Route pour accéder aux options ACF
+    register_rest_route('acf/v2', '/options/', [
+        'methods' => 'GET',
+        'callback' => 'get_acf_options', // La fonction de rappel pour récupérer les données
+        'permission_callback' => '__return_true', // Permet d'accéder sans vérification de permission (à ajuster en fonction de vos besoins)
+    ]);
+});
+
+// Fonction pour récupérer les options ACF
+function get_acf_options() {
+    // Récupérer les options ACF spécifiques (exemple avec un groupe nommé 'bloc_mot_du_president')
+    $options = get_fields('option'); // 'option' est l'endroit où les options ACF sont enregistrées dans la base de données
+
+    // Vérifiez si les options existent et retournez les données
+    if ($options) {
+        return rest_ensure_response($options);
+    }
+
+    // Si aucune option n'est trouvée, retournez une réponse vide
+    return rest_ensure_response([]);
+}
+*/
+add_action('rest_api_init', function () {
+    // Enregistrer une route pour l'API REST qui retourne les options ACF
+    register_rest_route('acf/v2', '/options/', [
+        'methods' => 'GET', // Méthode GET pour récupérer les données
+        'callback' => 'get_acf_options', // Fonction de récupération des options ACF
+        'permission_callback' => '__return_true', // Permet l'accès sans vérification de permission
+    ]);
+});
+
+// Fonction pour récupérer les options ACF
+/*
+function get_acf_options() {
+    // Récupérer les options ACF spécifiques
+    $options = get_fields('option'); // 'option' est le champ où sont stockées les options ACF
+
+    // Vérifiez si les options existent et retournez les données sous forme de réponse REST
+    if ($options) {
+        return rest_ensure_response($options); // Retourne les options dans une réponse JSON
+    }
+
+    // Si aucune option n'est trouvée, retournez une réponse vide
+    return rest_ensure_response([]);
+}
+*/
+
+
+
+function get_acf_options() {
+    // Récupérer les options ACF spécifiques
+    $options = get_fields('option'); // 'option' est le champ où sont stockées les options ACF
+
+    // Vérifiez si les options existent et retournez les données sous forme de réponse REST
+    if ($options) {
+        // Envelopper l'objet dans un tableau pour correspondre à la structure souhaitée
+        return rest_ensure_response([ $options ]);
+    }
+
+    // Si aucune option n'est trouvée, retournez un tableau vide
+    return rest_ensure_response([]);
+}
+
+
+
+// Ajouter featured_image_url à la réponse de l'API pour les pages
+function add_featured_image_url_to_rest($data, $post, $request) {
+    // Vérifier si l'article a une image mise en avant
+    if (has_post_thumbnail($post)) {
+        // Récupérer l'ID de l'image mise en avant
+        $featured_image_id = get_post_thumbnail_id($post);
+        
+        // Récupérer l'URL de l'image mise en avant
+        $featured_image_url = wp_get_attachment_url($featured_image_id);
+
+        // Ajouter l'URL de l'image mise en avant à la réponse
+        $data->data['featured_image_url'] = $featured_image_url;
+    } else {
+        // Si pas d'image mise en avant, ajouter une valeur nulle
+        $data->data['featured_image_url'] = null;
+    }
+    
+    return $data;
+}
+
+// Appliquer cette fonction à la réponse REST API de la page
+add_filter('rest_prepare_page', 'add_featured_image_url_to_rest', 10, 3);
+
+// Si vous souhaitez l'ajouter aussi pour d'autres types de contenus (posts, custom post types), vous pouvez également les spécifier comme suit :
+add_filter('rest_prepare_post', 'add_featured_image_url_to_rest', 10, 3);
+
+
+
+
+// API REST ENVOI DE MAIL
+// Ajouter un action hook pour la création du endpoint
+add_action('rest_api_init', function () {
+    register_rest_route('custom/v1', '/send-email/', [
+        'methods' => 'POST',
+        'callback' => 'send_contact_email',
+        'permission_callback' => '__return_true',  // Ajouter une vérification de permission si nécessaire
+    ]);
+});
+
+// Fonction pour envoyer l'email
+function send_contact_email(WP_REST_Request $request) {
+    // Récupérer les données envoyées depuis le formulaire
+    $data = $request->get_json_params();
+    $first_name = sanitize_text_field($data['first_name']);
+    $email = sanitize_email($data['email']);
+    $subject = sanitize_text_field($data['subject']);
+    $message = sanitize_textarea_field($data['message']);
+
+    // Convertir les retours à la ligne en balises <br>
+    $message = nl2br($message); // Convertit les retours chariot en <br>
+
+    // Destinataire
+    $to = 'test@cynomedia-africa.com';
+
+    // Sujet
+    $email_subject = 'Nouveau message de ' . $first_name . ' - ' . $subject;
+
+    // Corps du message avec mise en forme HTML
+    $email_message = "
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            .email-container { padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
+            .email-header { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px; }
+            .email-content { font-size: 16px; color: #555; margin-bottom: 10px; }
+            .email-footer { font-size: 14px; color: #888; margin-top: 20px; }
+            .email-label { font-weight: bold; color: #333; }
+        </style>
+    </head>
+    <body>
+        <div class='email-container'>
+            <div class='email-header'>
+                Nouveau message de : $first_name
+            </div>
+            <div class='email-content'>
+                <p><span class='email-label'>Nom et Prénom:</span> $first_name</p>
+                <p><span class='email-label'>Email:</span> $email</p>
+                <p><span class='email-label'>Sujet:</span> $subject</p>
+                <p><span class='email-label'>Message:</span></p>
+                <p>$message</p>
+            </div>
+            <div class='email-footer'>
+                Vous avez reçu ce message via votre formulaire de contact.
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+
+    // En-têtes de l'email
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'From: ' . $email
+    ];
+
+    // Envoyer l'email
+    $mail_sent = wp_mail($to, $email_subject, $email_message, $headers);
+
+    if ($mail_sent) {
+        return new WP_REST_Response('Email envoyé avec succès!', 200);
+    } else {
+        return new WP_REST_Response('Erreur lors de l\'envoi de l\'email.', 500);
+    }
+}
+
+
+
+/*
+TEST DE L API 
+
+POST https://sgi.cynomedia-africa.com/wp-json/custom/v1/send-email/
+
+{
+  "first_name": "John Doe",
+  "email": "lewimarcjean@gmail.com",
+  "subject": "Demande de renseignement",
+  "message": "Bonjour, j'aimerais avoir plus d'informations sur vos services."
+}
+
+*/
+
+
+// CODE CREATION D UNE TABLE POUR STOCCKER LES DONNES DES SOUSCRIPTEURS
+/*
+CREATE TABLE IF NOT EXISTS wp_subscriptions (
+    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    offer VARCHAR(255) NOT NULL,
+    person VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    birth_place VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL,
+    gender ENUM('Masculin', 'Féminin') NOT NULL,
+    identity_type VARCHAR(50) NOT NULL,
+    identity_number VARCHAR(100) NULL,
+    issued_date DATE NOT NULL,
+    issued_by VARCHAR(255) NOT NULL,
+    postal_address VARCHAR(255) NOT NULL,
+    locality VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    fax VARCHAR(20) NULL,
+    email VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+*/
+
+/*
+CODE POUR ENREGISTRER DES DONNEES FICTIVES
+
+INSERT INTO sgi_subscriptions (
+    offer, 
+    person, 
+    last_name, 
+    first_name, 
+    birth_place, 
+    birth_date, 
+    gender, 
+    identity_type, 
+    identity_number, 
+    issued_date, 
+    issued_by, 
+    postal_address, 
+    locality, 
+    phone_number, 
+    fax, 
+    email
+) 
+VALUES
+('Offre A', 'Individu', 'Koné', 'Adama', 'Abidjan', '1990-03-15', 'Masculin', 'CNI', 'CNI123456', '2015-04-20', 'Mairie d\'Abidjan', 'BP 1234 Abidjan', 'Abidjan', '0701020304', NULL, 'adama.kone@example.com'),
+('Offre B', 'Individu', 'Coulibaly', 'Fatou', 'Bouaké', '1988-07-10', 'Féminin', 'Passeport', 'PASS456789', '2016-08-15', 'Préfecture de Bouaké', 'BP 4567 Bouaké', 'Bouaké', '0704050607', NULL, 'fatou.coulibaly@example.com'),
+('Offre A', 'Individu', 'Traoré', 'Issa', 'Yamoussoukro', '1992-01-20', 'Masculin', 'CNI', 'CNI789123', '2017-09-12', 'Mairie de Yamoussoukro', 'BP 8910 Yamoussoukro', 'Yamoussoukro', '0707080910', NULL, 'issa.traore@example.com'),
+('Offre C', 'Individu', 'Ouattara', 'Aïcha', 'Korhogo', '1985-05-05', 'Féminin', 'Passeport', 'PASS321654', '2018-02-18', 'Mairie de Korhogo', 'BP 3456 Korhogo', 'Korhogo', '0711121314', NULL, 'aicha.ouattara@example.com'),
+('Offre B', 'Individu', 'Diallo', 'Moussa', 'Daloa', '1993-06-25', 'Masculin', 'CNI', 'CNI456789', '2015-11-10', 'Mairie de Daloa', 'BP 6789 Daloa', 'Daloa', '0714151617', NULL, 'moussa.diallo@example.com'),
+('Offre A', 'Individu', 'Bamba', 'Salimata', 'Man', '1991-09-09', 'Féminin', 'Passeport', 'PASS987654', '2016-05-06', 'Mairie de Man', 'BP 1122 Man', 'Man', '0718192021', NULL, 'salimata.bamba@example.com'),
+('Offre C', 'Individu', 'Touré', 'Ibrahim', 'San Pedro', '1987-03-03', 'Masculin', 'CNI', 'CNI654321', '2017-12-15', 'Mairie de San Pedro', 'BP 3344 San Pedro', 'San Pedro', '0722232425', NULL, 'ibrahim.toure@example.com'),
+('Offre A', 'Individu', 'Yao', 'Marie', 'Abengourou', '1995-04-14', 'Féminin', 'Passeport', 'PASS111222', '2019-07-01', 'Mairie d\'Abengourou', 'BP 5566 Abengourou', 'Abengourou', '0726272829', NULL, 'marie.yao@example.com'),
+('Offre B', 'Individu', 'N\'Dri', 'Franck', 'Divo', '1989-12-19', 'Masculin', 'CNI', 'CNI333444', '2014-03-08', 'Mairie de Divo', 'BP 7788 Divo', 'Divo', '0730313233', NULL, 'franck.ndri@example.com'),
+('Offre C', 'Individu', 'Akissi', 'Rose', 'Gagnoa', '1992-08-12', 'Féminin', 'Passeport', 'PASS555666', '2018-10-30', 'Mairie de Gagnoa', 'BP 9900 Gagnoa', 'Gagnoa', '0734353637', NULL, 'rose.akissi@example.com'),
+('Offre A', 'Individu', 'Ettien', 'Jean', 'Bondoukou', '1986-02-22', 'Masculin', 'CNI', 'CNI777888', '2013-01-25', 'Mairie de Bondoukou', 'BP 1121 Bondoukou', 'Bondoukou', '0738394041', NULL, 'jean.ettien@example.com'),
+('Offre B', 'Individu', 'Kouassi', 'Esther', 'Dabou', '1994-07-17', 'Féminin', 'Passeport', 'PASS999000', '2019-09-22', 'Mairie de Dabou', 'BP 2232 Dabou', 'Dabou', '0742434445', NULL, 'esther.kouassi@example.com'),
+('Offre C', 'Individu', 'Zongo', 'Albert', 'Odienné', '1990-11-11', 'Masculin', 'CNI', 'CNI000111', '2015-08-11', 'Mairie d\'Odienné', 'BP 3343 Odienné', 'Odienné', '0746474849', NULL, 'albert.zongo@example.com'),
+('Offre A', 'Individu', 'Soro', 'Brigitte', 'Séguéla', '1988-03-27', 'Féminin', 'Passeport', 'PASS222333', '2017-11-16', 'Mairie de Séguéla', 'BP 4454 Séguéla', 'Séguéla', '0750515253', NULL, 'brigitte.soro@example.com'),
+('Offre B', 'Individu', 'Guei', 'Daniel', 'Toumodi', '1991-06-06', 'Masculin', 'CNI', 'CNI444555', '2016-04-23', 'Mairie de Toumodi', 'BP 5565 Toumodi', 'Toumodi', '0754555657', NULL, 'daniel.guei@example.com'),
+('Offre C', 'Individu', 'Diomandé', 'Aminata', 'Bouna', '1993-09-18', 'Féminin', 'Passeport', 'PASS333444', '2018-02-20', 'Mairie de Bouna', 'BP 6676 Bouna', 'Bouna', '0758596061', NULL, 'aminata.diomande@example.com'),
+('Offre A', 'Individu', 'Gnagnon', 'Michel', 'Aboisso', '1985-05-15', 'Masculin', 'CNI', 'CNI666777', '2014-06-12', 'Mairie d\'Aboisso', 'BP 7787 Aboisso', 'Aboisso', '0762636465', NULL, 'michel.gnagnon@example.com'),
+('Offre B', 'Individu', 'Blehi', 'Clarisse', 'Soubré', '1990-10-10', 'Féminin', 'Passeport', 'PASS555666', '2017-05-08', 'Mairie de Soubré', 'BP 8898 Soubré', 'Soubré', '0766676869', NULL, 'clarisse.blehi@example.com'),
+('Offre C', 'Individu', 'Doumbia', 'Fanta', 'Anyama', '1989-12-01', 'Féminin', 'Passeport', 'PASS777888', '2016-08-09', 'Mairie d\'Anyama', 'BP 9909 Anyama', 'Anyama', '0770717273', NULL, 'fanta.doumbia@example.com'),
+('Offre A', 'Individu', 'Tanon', 'Kouadio', 'Adzopé', '1987-07-29', 'Masculin', 'CNI', 'CNI888999', '2015-03-13', 'Mairie d\'Adzopé', 'BP 1120 Adzopé', 'Adzopé', '0774757677', NULL, 'kouadio.tanon@example.com');
+
+*/
+
+
+
+// CREATION DE L OPTION PERMETTANT D'AFFICHER LES SOUSCRIPTEURS
+
+// Charger la classe WP_List_Table si elle n'est pas déjà incluse
+
+// Charger la classe WP_List_Table si elle n'est pas déjà chargée
+if (!class_exists('WP_List_Table')) {
+    require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+}
+
+// Classe pour afficher la liste des souscripteurs
+class Subscription_List_Table extends WP_List_Table {
+    
+    // Propriété pour stocker les données
+    private $table_data;
+
+    // Récupérer les données des souscripteurs
+    private function get_table_data( $search = '' ) {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'subscriptions';
+
+    if ( !empty($search) ) {
+        return $wpdb->get_results(
+            "SELECT * from {$table} WHERE offer LIKE '%{$search}%' OR last_name LIKE '%{$search}%' OR first_name LIKE '%{$search}%' OR gender LIKE '%{$search}%' OR identity_number LIKE '%{$search}%' OR phone_number LIKE '%{$search}%' OR locality LIKE '%{$search}%' OR birth_date LIKE '%{$search}%' ",
+            ARRAY_A
+        );
+    } else {
+        // Trier par 'created_at' DESC par défaut
+        return $wpdb->get_results(
+            "SELECT * from {$table} ORDER BY created_at DESC",
+            ARRAY_A
+        );
+    }
+}
+
+
+    // Définir les colonnes à afficher
+    function get_columns() {
+    $columns = array(
+    'cb'            => '<input type="checkbox" />',
+    'offer'         => __('Offre', 'supporthost-admin-table'), // "offre" devient "offer"
+    'last_name'     => __('Nom', 'supporthost-admin-table'), // "nom" devient "last_name"
+    'first_name'    => __('Prénom', 'supporthost-admin-table'), // "prenom" devient "first_name"
+    'gender'        => __('Genre', 'supporthost-admin-table'), // "genre" devient "gender"
+    'identity_number'=> __('N° Piece', 'supporthost-admin-table'), // "n_piece" devient "identity_number"
+    'phone_number'  => __('Téléphone', 'supporthost-admin-table'), // "telephone" devient "phone_number"
+    'locality'      => __('Localité', 'supporthost-admin-table'), // "localite" devient "locality"
+    'birth_date'    => __('Date', 'supporthost-admin-table'), // "date" devient "birth_date"
+    //'actions'       => __('Actions', 'supporthost-admin-table') // Nouvelle colonne pour les actions
+    'created_at'     => __('Date de création', 'supporthost-admin-table'),  // Ajoutez cette ligne
+
+);
+
+    return $columns;
+}
+
+    // Préparer les éléments à afficher dans le tableau
+    function prepare_items() {
+        // Récupérer les données des souscripteurs
+        if (isset($_POST['s'])) {
+            $this->table_data = $this->get_table_data($_POST['s']);
+        } else {
+            $this->table_data = $this->get_table_data();
+        }
+
+        $columns = $this->get_columns();
+        $hidden = (is_array(get_user_meta(get_current_user_id(), 'managetoplevel_page_subscription_list_tablecolumnshidden', true))) 
+                    ? get_user_meta(get_current_user_id(), 'managetoplevel_page_subscription_list_tablecolumnshidden', true) 
+                    : array();
+        $sortable = $this->get_sortable_columns();
+        $primary = 'id';
+        $this->_column_headers = array($columns, $hidden, $sortable, $primary);
+
+        // Trier les éléments
+        usort($this->table_data, array(&$this, 'usort_reorder'));
+
+        // Pagination
+        $per_page = $this->get_items_per_page('elements_per_page', 10);
+        $current_page = $this->get_pagenum();
+        $total_items = count($this->table_data);
+
+        // Limiter les résultats pour la pagination
+        $this->table_data = array_slice($this->table_data, (($current_page - 1) * $per_page), $per_page);
+
+        // Paramètres de pagination
+        $this->set_pagination_args(array(
+            'total_items' => $total_items,
+            'per_page'    => $per_page,
+            'total_pages' => ceil($total_items / $per_page)
+        ));
+
+        // Ajouter les éléments au tableau
+        $this->items = $this->table_data;
+    }
+
+    // Afficher les données des colonnes
+    function column_default($item, $column_name)
+    {
+ switch ($column_name) {
+    case 'offer': // "offre" devient "offer"
+    case 'last_name': // "nom" devient "last_name"
+    case 'first_name': // "prenom" devient "first_name"
+    case 'gender': // "genre" devient "gender"
+    case 'identity_number': // "n_piece" devient "identity_number"
+    case 'phone_number': // "telephone" devient "phone_number"
+    case 'locality': // "localite" devient "locality"
+    case 'birth_date': // "date" devient "birth_date"
+        return $item[$column_name];
+    case 'created_at': // Afficher la date de création
+            return date('d-m-Y H:i', strtotime($item[$column_name])); // Formater la date si nécessaire        
+    /*case 'actions':
+        return sprintf('<button class="button open-modal" data-id="%s">Voir détails</button>', $item['id']);*/
+    default:
+        return $item[$column_name];
+}
+
+}
+
+
+    // Ajouter une case à cocher dans la première colonne
+    function column_cb($item) {
+        return sprintf(
+            '<input type="checkbox" name="element[]" value="%s" />',
+            $item['id']
+        );
+    }
+
+    // Définir les colonnes triables
+    protected function get_sortable_columns() {
+        $sortable_columns = array(
+            'last_name' => array('last_name', false),
+            'first_name' => array('first_name', false),
+            'created_at' => array('created_at', true)
+        );
+        return $sortable_columns;
+    }
+
+    // Fonction de tri
+    function usort_reorder($a, $b) {
+    $orderby = !empty($_GET['orderby']) ? $_GET['orderby'] : 'created_at';
+    $order = !empty($_GET['order']) ? $_GET['order'] : 'desc';
+
+    
+    if ($orderby == 'created_at') {
+        // Comparer les dates si la colonne est 'created_at'
+        $result = strtotime($a[$orderby]) - strtotime($b[$orderby]);
+    } else {
+        // Comparer les autres colonnes par défaut
+        $result = strcmp($a[$orderby], $b[$orderby]);
+    }
+
+    return ($order === 'asc') ? $result : -$result;
+}
+
+
+    // Ajouter des actions à la colonne Modifier Supprimer
+    function column_last_name($item) {
+        $actions = array(
+            'edit' => sprintf('<a href="?page=%s&action=%s&element=%s">' . __('', 'subscription-admin-table') . '</a>', $_REQUEST['page'], 'edit', $item['id']),
+            'delete' => sprintf('<a href="?page=%s&action=%s&element=%s">' . __('', 'subscription-admin-table') . '</a>', $_REQUEST['page'], 'delete', $item['id']),
+        );
+        return sprintf('%1$s %2$s', $item['last_name'], $this->row_actions($actions));
+    }
+
+    // Ajouter une option pour les actions de masse
+    function get_bulk_actions() {
+        /*
+        $actions = array(
+            'delete_all' => __('Supprimer', 'subscription-admin-table'),
+            'draft_all' => __('Passer à l\'état Brouillon', 'subscription-admin-table')
+        );
+        return $actions;
+        */
+    }
+}
+
+
+
+// Ajouter le menu à l'admin
+function subscription_list_menu() {
+    global $subscription_list_page;
+
+    // Ajouter une page de menu dans l'administration
+    $subscription_list_page = add_menu_page(__('Liste des Souscripteurs', 'subscription-admin-table'), 
+        __('Souscripteurs', 'subscription-admin-table'), 'manage_options', 
+        'subscription_list', 'subscription_list_init',
+        'dashicons-groups' // Icône Dashicon 'groups'
+
+        );
+
+    add_action("load-$subscription_list_page", "subscription_sample_screen_options");
+}
+add_action('admin_menu', 'subscription_list_menu');
+
+// Fonction de callback pour afficher la page des souscripteurs
+function subscription_list_init() {
+    $table = new Subscription_List_Table();
+    echo '<div class="wrap"><h2>Liste des Souscripteurs</h2>';
+    echo '<form method="post">';
+    // Préparer et afficher le tableau
+    $table->prepare_items();
+    $table->search_box('Rechercher', 'search_id');
+    $table->display();
+    echo '</div></form>';
+}
+
+// Options de pagination et affichage
+function subscription_sample_screen_options() {
+    global $subscription_list_page;
+    $screen = get_current_screen();
+    if (!is_object($screen) || $screen->id != $subscription_list_page) return;
+    $args = array(
+        'label' => __('Éléments par page', 'subscription-admin-table'),
+        'default' => 10,
+        'option' => 'elements_per_page'
+    );
+    add_screen_option('per_page', $args);
+    $table = new Subscription_List_Table();
+}
+
+add_filter('set-screen-option', 'set_screen_option', 10, 3);
+function set_screen_option($status, $option, $value) {
+    return $value;
+}
+
+
+// API PERMETTANT D ENREGISTRER UN NOUVEAU SOUSCRIPTEUR
+// Créer un endpoint API pour enregistrer un souscripteur
+function register_subscriber_endpoint() {
+    register_rest_route(
+        'subscription-api/v1', // Namespace de l'API
+        '/add-subscriber', // URL de l'endpoint
+        array(
+            'methods'  => 'POST', // Méthode HTTP utilisée (POST)
+            'callback' => 'handle_add_subscriber', // Fonction qui va traiter la requête
+            'permission_callback' => '__return_true', // Autoriser tout le monde à accéder à cet endpoint (à ajuster selon les besoins de sécurité)
+        )
+    );
+}
+add_action('rest_api_init', 'register_subscriber_endpoint');
+
+// Fonction de callback pour traiter la requête et enregistrer un souscripteur
+function handle_add_subscriber(WP_REST_Request $request) {
+    // Récupérer les données envoyées dans la requête
+    $offer          = sanitize_text_field($request->get_param('offer'));
+    $person         = sanitize_text_field($request->get_param('person'));
+    $last_name      = sanitize_text_field($request->get_param('last_name'));
+    $first_name     = sanitize_text_field($request->get_param('first_name'));
+    $birth_place    = sanitize_text_field($request->get_param('birth_place'));
+    $birth_date     = sanitize_text_field($request->get_param('birth_date'));
+    $gender         = sanitize_text_field($request->get_param('gender'));
+    $identity_type  = sanitize_text_field($request->get_param('identity_type'));
+    $identity_number = sanitize_text_field($request->get_param('identity_number'));
+    $issued_date    = sanitize_text_field($request->get_param('issued_date'));
+    $issued_by      = sanitize_text_field($request->get_param('issued_by'));
+    $postal_address = sanitize_text_field($request->get_param('postal_address'));
+    $locality       = sanitize_text_field($request->get_param('locality'));
+    $phone_number   = sanitize_text_field($request->get_param('phone_number'));
+    $fax            = sanitize_text_field($request->get_param('fax'));
+    $email          = sanitize_email($request->get_param('email'));
+    
+    // Valider les données (vous pouvez ajouter plus de validations ici)
+    if (empty($offer) || empty($last_name) || empty($first_name)) {
+        return new WP_REST_Response('Les champs "offre", "nom" et "prénom" sont obligatoires.', 400);
+    }
+
+    // Préparer les données pour l'insertion dans la base de données
+    global $wpdb;
+    $table = $wpdb->prefix . 'subscriptions'; // Nom de la table de votre souscripteur (assurez-vous qu'elle existe)
+
+    // Insérer les données dans la table
+    $data = array(
+        'offer'          => $offer,
+        'person'         => $person,
+        'last_name'      => $last_name,
+        'first_name'     => $first_name,
+        'birth_place'    => $birth_place,
+        'birth_date'     => $birth_date,
+        'gender'         => $gender,
+        'identity_type'  => $identity_type,
+        'identity_number'=> $identity_number,
+        'issued_date'    => $issued_date,
+        'issued_by'      => $issued_by,
+        'postal_address' => $postal_address,
+        'locality'       => $locality,
+        'phone_number'   => $phone_number,
+        'fax'            => $fax,
+        'email'          => $email,
+        'created_at'     => current_time('mysql') // Date de création
+    );
+
+    $format = array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+
+    // Effectuer l'insertion dans la base de données
+    $inserted = $wpdb->insert($table, $data, $format);
+
+    if ($inserted) {
+        return new WP_REST_Response('Souscripteur ajouté avec succès.', 200);
+    } else {
+        return new WP_REST_Response('Erreur lors de l\'ajout du souscripteur.', 500);
+    }
+}
+
+
+// API Notification par mail lorsqu on a un nouveau souscripteur
+// Ajouter un action hook pour la création du endpoint
+add_action('rest_api_init', function () {
+    register_rest_route('custom/v1', '/send-subscription-notification/', [
+        'methods' => 'POST',
+        'callback' => 'send_subscription_notification',
+        'permission_callback' => '__return_true', // Permet à tous d'accéder, à sécuriser si nécessaire
+    ]);
+});
+
+// Fonction pour envoyer la notification
+function send_subscription_notification(WP_REST_Request $request) {
+    // Récupérer les données envoyées
+    $data = $request->get_json_params();
+    $subscriber_name = sanitize_text_field($data['first_name'] ?? 'Anonyme'); // Nom de l'utilisateur inscrit
+    $subscriber_email = sanitize_email($data['email'] ?? ''); // E-mail de l'utilisateur inscrit
+
+    // Vérifier que l'e-mail est valide
+    if (empty($subscriber_email) || !is_email($subscriber_email)) {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'Adresse e-mail invalide.',
+        ], 400);
+    }
+
+    // Adresse du destinataire
+    $to = 'test@cynomedia-africa.com'; // Remplacez par l'adresse cible
+
+    // Sujet de l'e-mail
+    $subject = 'Un Nouveau Souscripteur s\'inscrit sur votre site';
+
+    // Corps de l'e-mail en HTML
+    $message = "
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            .email-container { padding: 20px; background-color: #f4f4f9; border: 1px solid #ddd; border-radius: 5px; }
+            .email-header { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+            .email-content { font-size: 16px; margin-bottom: 10px; }
+            .email-label { font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class='email-container'>
+            <div class='email-header'>Nouvelle inscription</div>
+            <div class='email-content'>
+                <p><span class='email-label'>Nom de l'abonné:</span> $subscriber_name</p>
+                <p><span class='email-label'>E-mail de l'abonné:</span> $subscriber_email</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+
+    // En-têtes de l'e-mail
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'From: notifications@votresite.com' // Utiliser une adresse "From" valide
+    ];
+
+    // Envoi de l'e-mail
+    $mail_sent = wp_mail($to, $subject, $message, $headers);
+
+    // Retourner la réponse selon le résultat
+    if ($mail_sent) {
+        return new WP_REST_Response([
+            'success' => true,
+            'message' => 'Notification envoyée avec succès.',
+        ], 200);
+    } else {
+        return new WP_REST_Response([
+            'success' => false,
+            'message' => 'Erreur lors de l\'envoi de la notification.',
+        ], 500);
+    }
+}
+
+
+
+
+
+// creation du CPT Nos Clients
+function create_clients_cpt() {
+    $args = array(
+        'public' => true,
+        'label'  => 'Nos Clients',
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'show_in_rest' => true, // Active l'API REST pour ce CPT
+    );
+    register_post_type('clients', $args);
+}
+add_action('init', 'create_clients_cpt');
+
+// Exposer les données 
+function expose_acf_to_rest_clients() {
+    // Exposer le champ ACF de type lien (par exemple, 'client_link')
+    register_rest_field('clients', 'client_link', array(
+        'get_callback' => function($data) {
+            return get_field('lien', $data['id']); // Récupère le champ de lien
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+
+    // Exposer l'image mise en avant (featured image)
+    register_rest_field('clients', 'featured_image_url', array(
+        'get_callback' => function ($data) {
+            $image_id = get_post_thumbnail_id($data['id']); // ID de l'image mise en avant
+            return $image_id ? wp_get_attachment_image_url($image_id, 'full') : null;
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+
+    // Exposer le titre du post (client title)
+    register_rest_field('clients', 'title', array(
+        'get_callback' => function($data) {
+            return get_the_title($data['id']); // Récupère le titre du post
+        },
+        'update_callback' => null,
+        'schema' => null,
+    ));
+}
+add_action('rest_api_init', 'expose_acf_to_rest_clients');
+
+
+
+
+
+// Ajouter un en-tête 'X-WP-Total' avec le nombre total d'articles
+function add_x_wp_total_header( $response, $post, $request ) {
+    // Récupérer les paramètres de la requête de pagination
+    $per_page = $request->get_param( 'per_page' );  // Nombre d'articles par page
+    $page = $request->get_param( 'page' );  // Numéro de la page actuelle
+    
+    // Si 'per_page' et 'page' sont définis, calculer le nombre total d'articles
+    if ( isset( $per_page ) && isset( $page ) ) {
+        // Utiliser une nouvelle requête pour récupérer le nombre total d'articles
+        $args = array(
+            'post_type' => 'post',
+            'posts_per_page' => -1,  // Pas de pagination ici, juste le total
+            'post_status' => 'publish',  // Seulement les articles publiés
+        );
+        
+        // Exécuter la requête
+        $query = new WP_Query( $args );
+        $total_posts = $query->found_posts;  // Nombre total d'articles
+        
+        // Ajouter l'en-tête personnalisé X-WP-Total
+        $response->header( 'X-WP-Total', $total_posts );
+    }
+
+    return $response;
+}
+
+// Appliquer ce filtre à la réponse de l'API REST pour les posts
+add_filter( 'rest_prepare_post', 'add_x_wp_total_header', 10, 3 );
+
+
+// POUR LA GESTION DES OFFRES D EMPLOI
+
+
+// Fonction pour enregistrer le Custom Post Type "offre_d_emploi"
+function create_job_offer_post_type() {
+    $labels = array(
+        'name'               => 'Offres d\'emploi',
+        'singular_name'      => 'Offre d\'emploi',
+        'menu_name'          => 'Offres d\'emploi',
+        'name_admin_bar'     => 'Offre d\'emploi',
+        'add_new'            => 'Ajouter une nouvelle',
+        'add_new_item'       => 'Ajouter une nouvelle offre',
+        'new_item'           => 'Nouvelle offre',
+        'edit_item'          => 'Éditer l\'offre',
+        'view_item'          => 'Voir l\'offre',
+        'all_items'          => 'Toutes les offres',
+        'search_items'       => 'Rechercher une offre',
+        'not_found'          => 'Aucune offre trouvée',
+        'not_found_in_trash' => 'Aucune offre dans la corbeille',
+        'parent_item_colon'  => '',
+        'menu_name'          => 'Offres d\'emploi',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'hierarchical'       => false,
+        'supports'           => array( 'title', 'editor', 'custom-fields' ),
+        'show_in_rest'       => true, // Active l'API REST pour ce CPT
+        'rest_base'          => 'job_offers', // Base pour l'API REST
+        'menu_icon'          => 'dashicons-businessperson', // Icône dans le menu
+        'show_in_menu'       => true,
+        'rewrite'            => array( 'slug' => 'offres-emploi' ), // URL personnalisée
+    );
+
+    register_post_type( 'offre_d_emploi', $args );
+}
+
+add_action( 'init', 'create_job_offer_post_type' );
+
+/*
+function disable_acf_code_field() {
+    // Vérifie si nous sommes dans l'administration d'un post de type 'offre_d_emploi'
+    if (get_post_type() === 'offre_d_emploi' && is_admin()) {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // Désactive le champ 'code' dans ACF (assurez-vous que le nom du champ soit correct)
+                $('#acf-field_676540ffb7b94').prop('disabled', true); // Désactiver le champ
+                $('#acf-field_676540ffb7b94').css('background-color', '#f5f5f5'); // Changer la couleur de fond pour le griser
+            });
+        </script>
+        <?php
+    }
+}
+add_action('admin_footer', 'disable_acf_code_field');
+*/
+
+// Fonction pour pré-remplir le champ 'code' avec l'ID de l'offre
+function prefill_job_code_field() {
+    // Vérifie si nous sommes dans l'administration et sur un post de type 'offre_d_emploi'
+    if (get_post_type() === 'offre_d_emploi' && is_admin()) {
+        // Vérifie si nous sommes en mode édition (un ID de post est présent)
+        if (isset($_GET['post'])) {
+            $post_id = $_GET['post']; // Récupère l'ID de l'enregistrement en édition
+            // Récupère l'ID de l'offre et l'affiche dans le champ 'code'
+            $existing_code = $post_id; // L'ID du post comme code
+        } else {
+            $existing_code = ''; // Si nous ne sommes pas en mode édition, le code est vide
+        }
+
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // Sélectionne le champ 'code' (assurez-vous que l'ID du champ est correct)
+                var $codeField = $('#acf-field_676540ffb7b94'); 
+
+                // Si nous sommes en mode édition et que le champ 'code' est déjà renseigné
+                if ('<?php echo $existing_code; ?>' !== '') {
+                    $codeField.val('<?php echo $existing_code; ?>'); // Remplir avec l'ID du post comme code
+                }
+
+                // Désactiver le champ 'code' pour éviter toute modification
+                $codeField.prop('disabled', true); // Désactive le champ
+                $codeField.css('background-color', '#f5f5f5'); // Change la couleur de fond pour griser le champ
+            });
+        </script>
+        <?php
+    }
+}
+add_action('admin_footer', 'prefill_job_code_field');
+
+
+
+
+// Fonction pour enregistrer le champ 'code' lors de l'enregistrement du post
+function save_job_code_field($post_id) {
+    // Vérifier si nous sommes en mode édition d'un post de type 'offre_d_emploi'
+    if (get_post_type($post_id) === 'offre_d_emploi') {
+        // Vérifier si le champ 'code' est déjà défini pour ce post
+        $existing_code = get_post_meta($post_id, 'code', true);
+        
+        // Si le champ 'code' est vide, on le remplit avec l'ID du post
+        if (empty($existing_code)) {
+            update_post_meta($post_id, 'code', $post_id); // Enregistrer l'ID comme valeur du champ 'code'
+        }
+    }
+}
+add_action('save_post', 'save_job_code_field');
+
+
+
+// send mail for job
+// API REST ENVOI DE MAIL AVEC PIÈCE JOINTE
+add_action('rest_api_init', function () {
+    register_rest_route('custom/v1', '/apply-job/', [
+        'methods' => 'POST',
+        'callback' => 'send_email_job',
+        'permission_callback' => '__return_true',
+    ]);
+});
+
+
+function send_email_job(WP_REST_Request $request) {
+    // Récupérer les données envoyées depuis le formulaire
+    $data = $request->get_params(); // Paramètres non-fichiers
+    $file_data = $request->get_file_params(); // Fichiers envoyés
+
+    // Récupérer les champs
+    $first_name = sanitize_text_field($data['first_name'] ?? '');
+    $email = sanitize_email($data['email'] ?? '');
+    $subject = sanitize_text_field($data['subject'] ?? '');
+    $telephone = sanitize_textarea_field($data['telephone'] ?? '');
+
+    // Vérification des champs requis
+    if (empty($first_name) || empty($email) || empty($subject) ) {
+        return new WP_REST_Response('Tous les champs doivent être remplis.', 400);
+    }
+
+    // Vérifier si un fichier a été envoyé
+    $attachment = null;
+    if (isset($file_data['cv']) && is_array($file_data['cv'])) {
+        // Assurez-vous que le fichier a été téléchargé avec succès
+        $upload = wp_upload_bits($file_data['cv']['name'], null, file_get_contents($file_data['cv']['tmp_name']));
+        if (!$upload['error']) {
+            $attachment = $upload['file']; // Le chemin vers le fichier uploadé
+        }
+    }
+
+    // Destinataire
+    $to = 'test@cynomedia-africa.com';
+
+    // Sujet
+    $email_subject = 'Nouvelle candidature de ' . $first_name . ' - ' . $subject;
+
+    // Corps du message avec mise en forme HTML
+    $email_message = "
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            .email-container { padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
+            .email-header { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px; }
+            .email-content { font-size: 16px; color: #555; margin-bottom: 10px; }
+            .email-footer { font-size: 14px; color: #888; margin-top: 20px; }
+            .email-label { font-weight: bold; color: #333; }
+        </style>
+    </head>
+    <body>
+        <div class='email-container'>
+            <div class='email-header'>
+                Nouveau message de : $first_name
+            </div>
+            <div class='email-content'>
+                <p><span class='email-label'>Nom et Prénom:</span> $first_name</p>
+                <p><span class='email-label'>Email:</span> $email</p>
+                <p><span class='email-label'>Téléphone:</span> $telephone</p>
+            </div>
+            <div class='email-footer'>
+                Vous avez reçu ce message via votre formulaire de contact.
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+
+    // En-têtes de l'email
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'From: ' . $email
+    ];
+
+    // Vérifier si un fichier PDF est attaché, et l'ajouter à la liste des pièces jointes
+    $attachments = [];
+    if ($attachment) {
+        $attachments[] = $attachment;  // Ajout de la pièce jointe
+    }
+
+    // Envoi de l'email avec la pièce jointe (si présente)
+    $mail_sent = wp_mail($to, $email_subject, $email_message, $headers, $attachments);
+
+    if ($mail_sent) {
+        return new WP_REST_Response('Email envoyé avec succès!', 200);
+    } else {
+        return new WP_REST_Response('Erreur lors de l\'envoi de l\'email.', 500);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// Hook pour initialiser l'API
+add_action('rest_api_init', function() {
+    register_rest_route('newsletter/v1', '/subscribe', [
+        'methods' => 'POST',
+        'callback' => 'subscribe_newsletter',
+        'permission_callback' => '__return_true', // Autoriser les appels sans authentification
+    ]);
+});
+
+// Fonction pour gérer l'abonnement à la newsletter
+function subscribe_newsletter(WP_REST_Request $request) {
+    global $wpdb;
+
+    // Récupérer l'email envoyé depuis le frontend
+    $email = sanitize_email($request->get_param('email'));
+
+    // Vérifier que l'email est valide
+    if (!is_email($email)) {
+        return new WP_REST_Response('Email invalide', 400);
+    }
+
+    // Vérifier si l'email est déjà dans la base de données
+    $existing_subscriber = $wpdb->get_var($wpdb->prepare(
+        "SELECT email FROM {$wpdb->prefix}newsletter_subscribers WHERE email = %s",
+        $email
+    ));
+
+    if ($existing_subscriber) {
+        return new WP_REST_Response('Email déjà inscrit', 409);
+    }
+
+    // Insérer l'email dans la base de données
+    $inserted = $wpdb->insert(
+        "{$wpdb->prefix}newsletter_subscribers",
+        [
+            'email' => $email,
+            'date_subscribed' => current_time('mysql')
+        ]
+    );
+
+    // Vérifier si l'insertion a échoué
+    if ($inserted === false) {
+        return new WP_REST_Response('Erreur lors de l\'inscription. Veuillez réessayer.', 500);
+    }
+
+    // Retourner une réponse de succès
+    return new WP_REST_Response('Inscription réussie', 200);
+}
+
+
+
+
+
+
+
+/*******************************/
+// Ajouter le lien d'exportation au menu d'administration
+function add_export_link_to_admin_menu() {
+    add_menu_page(
+        'Exporter les abonnés', // Titre de la page
+        'Exporter Newsletter', // Titre du menu
+        'manage_options', // Capacité nécessaire pour accéder à ce menu
+        'export_newsletter', // Slug pour la page
+        'display_export_link', // Fonction à appeler
+        'dashicons-download', // Icône du menu
+        25 // Position dans le menu
+    );
+}
+add_action('admin_menu', 'add_export_link_to_admin_menu');
+
+// Afficher un lien de téléchargement dans le menu
+function display_export_link() {
+    // Lien pour télécharger le fichier CSV
+    echo '<div class="wrap">';
+    echo '<h1>Exporter les abonnés à la newsletter</h1>';
+    echo '<p><a href="' . admin_url('admin-ajax.php?action=export_newsletter_csv') . '" class="button button-primary">Télécharger les abonnés au format CSV</a></p>';
+    echo '</div>';
+}
+
+// Gérer l'exportation des abonnés en CSV via AJAX
+function export_newsletter_csv() {
+    global $wpdb;
+
+    // Vérifiez que l'utilisateur a la permission d'exporter
+    if (!current_user_can('manage_options')) {
+        wp_die('Vous n\'avez pas les autorisations nécessaires pour effectuer cette action.');
+    }
+
+    // Récupérer les abonnés de la table wp_newsletter_subscribers
+    $subscribers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}newsletter_subscribers", ARRAY_A);
+
+    // Si aucune donnée, retourner un message
+    if (empty($subscribers)) {
+        echo 'Aucun abonné à exporter.';
+        return;
+    }
+
+    // Définir l'en-tête pour l'exportation CSV
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="subscribers_export.csv"');
+
+    // Ouvrir le flux de sortie CSV
+    $output = fopen('php://output', 'w');
+
+    // Écrire les en-têtes de colonne dans le CSV
+    // fputcsv($output, array('ID', 'Email', 'Date d\'inscription'));
+    // 'ID', 
+    fputcsv($output, array('Email'));
+
+    // Parcourir les abonnés et les écrire dans le fichier CSV
+    foreach ($subscribers as $subscriber) {
+        // fputcsv($output, array($subscriber['id'], $subscriber['email'], $subscriber['date_subscribed']));
+        //, $subscriber['date_subscribed']
+        // $subscriber['id'], 
+        fputcsv($output, array($subscriber['email']));
+    }
+
+    // Fermer le flux de sortie
+    fclose($output);
+    exit();
+}
+add_action('wp_ajax_export_newsletter_csv', 'export_newsletter_csv'); // Action AJAX pour export CSV
+
+
+
+-----------
+
+https://www.npmjs.com/package/react-query
+https://refine.dev/blog/react-query-guide/#bonus-subject-advanced-querying-techniques-using-react-query
+https://chatgpt.com/c/678e1ed8-e240-8007-9fd9-23ac8ef0307f
+PRINCIPE DEVWEB: https://chatgpt.com/c/678e135c-de64-8007-92e1-0709f0ff99b9
+https://github.com/Devlewi/people237
+file:///Users/cynomedia/Downloads/LEWI%20JM%20ESSOH/DOCS%20CYNOMEDIA/ACCES%20SITES%20ET%20SERVEURS/Acces-serveurs.pdf
+
+DELETE FROM wp_posts WHERE ID = 0;
+SELECT * FROM wp_posts
+WHERE post_status = 'draft'
+  AND post_type = 'post';
+
+
+
+PROBLEMATIQUE LE PLUGIN DE VUES NE FOURNI PAS D API 
+POUR L ARCHITECTURE UTILISE
+
+SOLUTION: LE DESACTIVER, DVELOPPER UN MODULE DE VISITES (VUES)
+PUIS METTRE A JOURS LES VUES DES ANCIENS ARTICLES A L AIDE DE REQUETTE
+
+php a la derniere version (reolsuion de certains bugs)
+
+la resolution a prit du temps (duplicate... a chaque rafraichissement 
+constat d enregistemet avec id=0)
+
+nettoyage plugins (retirer les plugins inutiles), mettre a jours les plugins 
+obsolete, retenir que les plugins necessaires et indispensables
+
+
+
+
+
+==== structure du projet NEXT JS 15
+src
+    app        
+        page.tsx
+        page.module.css
+        layout.tsx
+        global.css        
+        components
+        articles
+            [slug.tsx]
+        categories
+            [culture]
+                page.tsx             
+        recherche
+            page.tsx
+            
+        
+
+
+> niveaux de caches
+- coté serveur avec fetch
+- proxy puis revalidate coté front
+
+
+
+>> presentement le cache est activé en SSR (côté serveur) avec 
+next: { revalidate: 60 }, il se regenere chaque minutes (60 secondes)
+s il y a probleme on augmentera la durée de regeneration du cache pour voir
+
+Fonctionnement du cache avec revalidate :
+Après 60 secondes, Next.js vérifie s'il doit mettre à jour le cache en régénérant la page.
+Les données sont mises en cache et Next.js ne fait pas une nouvelle requête backend tant que le cache n'a pas expiré.
+Le serveur backend est uniquement appelé quand les données changent ou si la période de revalidate est atteinte.
+
+
+
+https://forum.revive-adserver.com/topic/6305-anyone-using-revive-with-react-app/
+
+
+
+
+
+
+
+
+
+Pour tester la montée en charge de ton site Next.js et de ton backend WordPress, il faut simuler différents scénarios :
+
+Charge faible : 10-50 utilisateurs
+Charge moyenne : 100-500 utilisateurs
+Charge élevée : 1000+ utilisateurs
+
+k6 run tests/stress-test.js
+
+
+📌 3. Analyser les résultats
+Après l’exécution, k6 affichera des statistiques comme :
+
+✅ Taux de succès (%) : combien de requêtes sont retournées en 200 OK
+⚠️ Taux d’erreur (%) : s'il y a des requêtes en 500 (erreur serveur)
+⏱️ Temps de réponse moyen et max
+🔥 Charge CPU et mémoire (si tu fais tourner htop sur le serveur en parallèle)
+
+
+
+
+
+
+
+
+Page d'accueil : La première requête vérifie l'accès à la page d'accueil.
+Catégories : Le script teste successivement les pages pour les catégories Portrait, Cinéma & Arts, People Camer et Sport (avec pagination).
+Détails d'articles : Ensuite, il teste plusieurs pages d'articles spécifiques en fonction des URLs que tu as données.
+
+50 utilisateurs simulés pendant 30 secondes.
+200 utilisateurs simulés pendant 1 minute.
+500 utilisateurs simulés pendant 30 secondes.
+1000 utilisateurs simulés pendant 1 minute.
+Redescente du nombre d'utilisateurs pour simuler une réduction de la charge après les tests.
+
+
+MonsterInsights, Google Analytics Dashboard for WP
