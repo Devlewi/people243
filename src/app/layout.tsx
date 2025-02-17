@@ -1298,6 +1298,9 @@ export default function RootLayout({
               <div className="lower-footer bold-footer-lower">
                 <div className="ts-contain inner">
                   <div className="spc-social-block spc-social spc-social-b ">
+
+                  
+
                     <a
                       href="https://www.facebook.com/people243/"
                       className="link service s-facebook"
@@ -1429,9 +1432,38 @@ export default function RootLayout({
                     </div>
                   </div>
                   <div className="copyright white-title">
-                    © 2024 Copyright People243.com ©, All Rights Reserved. 
-                    {/* | Mentions Légales{" "} */}
+                    © 2025 Copyright People237.com ©, All Rights Reserved. 
+                     | <Link href={'/mentions-legales'} style={{color:"rgb(10 153 219)"}}>Mentions Légales</Link>{" "}                      
+                     
                   </div>
+                  <br/>
+                  <div
+  className="copyright-text"
+  style={{ color: "white", fontWeight: 600, marginTop: 0, textAlign: "center" }}
+>
+  <p style={{ color: "white", fontSize: 13, fontWeight: 600, marginBottom: 0 }}>
+    <span style={{ color: "white", fontWeight: 600 }}>
+      Développé par &nbsp;
+      <a
+        target="_blank"
+        href="https://cynomedia.com/"
+        style={{ textDecoration: "none" }}
+      >
+        <img
+          alt="logo cynomedia"
+          loading="lazy"
+          width={90}
+          height={31}
+          decoding="async"
+          data-nimg={1}
+          style={{ color: "transparent", marginTop: "-10px" }}
+          src="/images/logo-cynomedia.webp"
+        />
+      </a>
+    </span>
+  </p>
+</div>
+<br/>
                 </div>
               </div>
             </footer>
