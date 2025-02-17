@@ -4,5 +4,5 @@ Ce projet est le frontend du site People 243, développé avec Next.js. Il s'agi
 
 Aperçu du projet :
 
-![Screenshot](images/screenshot.png)
+![Screenshot](public/images/screenshot.png)
 
