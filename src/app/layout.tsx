@@ -913,10 +913,7 @@ export default function RootLayout({
                 {/*<div className="main-wrap">{children}</div>*/}
                 {/*loading && <Loader />} {/* Affichage du loader */}
                 {isTransitioning && <TransitionPage />}
-
                 {children}
-                                
-                
                 <StickyFooter />
                 <BottomMenu />
 

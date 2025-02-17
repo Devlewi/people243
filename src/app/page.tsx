@@ -64,8 +64,11 @@ export default async function Home() {
         <title>PEOPLE 237</title>
 
       </Head>
-          {/* Passer les données à FeaturedInfo */}
-          <FeaturedInfo alauneData={data.alaune || []} />
+          {/* Passer les données à FeaturedInfo */}          
+
+          {data.alaune && data.alaune.length > 2 && (
+            <FeaturedInfo alauneData={data.alaune} />
+          )}
 
         {/* Passer les données à HomePageContentComponent */}
         <HomePageContentComponent recapData={data.recap || {}}/>

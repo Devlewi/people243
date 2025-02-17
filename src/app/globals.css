@@ -6958,3 +6958,8 @@ color: #059fe3 !important;
 .article-content{
     text-align: justify !important;
 }
+
+
+ins a img {
+    width: 100% !important;
+}
