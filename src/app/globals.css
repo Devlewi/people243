@@ -6963,3 +6963,14 @@ color: #059fe3 !important;
 ins a img {
     width: 100% !important;
 }
+
+
+
+
+.bold-footer-lower .inner {
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px !important;
+}
