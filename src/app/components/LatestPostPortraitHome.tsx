@@ -39,7 +39,7 @@ const LatestPostPortraitHome: React.FC<LatestPostPortraitHomeProps> = ({
           <h4 className="heading" style={{ fontSize: 25 }}>
             <span className="color">
               <i className="typcn typcn-camera" style={{ fontSize: 30 }} />{" "}
-              Portrait
+              Mode & Beauté
             </span>
           </h4>
         </div>
@@ -68,7 +68,7 @@ const LatestPostPortraitHome: React.FC<LatestPostPortraitHomeProps> = ({
                 </Link>
                 <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
                   <Link
-                    href="/categorie/culture/"
+                    href="#"
                     className="category term-color-3"
                     rel="category"
                     tabIndex={-1}
@@ -80,7 +80,11 @@ const LatestPostPortraitHome: React.FC<LatestPostPortraitHomeProps> = ({
               <div className="content">
                 <div className="post-meta post-meta-a has-below">
                   <h2 className="is-title post-title">
-                    <Link href="/details/" className="post-title-2">
+                    <Link 
+                    href={{
+                      pathname: `/${article.slug}`, // URL dynamique
+                    }}
+                    className="post-title-2">
                     {truncateTitle(he.decode(article.title), 7)}{" "}
                     </Link>
                   </h2>

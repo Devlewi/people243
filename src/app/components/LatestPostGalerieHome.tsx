@@ -68,7 +68,7 @@ const LatestPostGalerieHome: React.FC<LatestPostGalerieHomeProps> = ({
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
                     <Link
-                      href="/categorie/culture/"
+                      href="#"
                       className="category term-color-3"
                       rel="category"
                       tabIndex={-1}

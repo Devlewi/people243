@@ -103,17 +103,17 @@ const { articles,latestposts,mostviewed } = recapData;
                             data-widget_type="smartmag-postslist.default"
                           >
                             <div className="elementor-widget-container">                            
-                              <LatestPostPortraitHome articlesportrait={articles['people-portrait'] || []} />                              
+                            <LatestPostDecouverteHome articlesdecouvertes={articles['decouvertes'] || []} />                                                                                          
                               <br />
                               <br />                              
                               {/*<LatestPostEventHome/>*/}
                               <LatestPostEventHome articlesevent={articles['events'] || []} />
                               <br />
                               <br />
-                              <LatestPostDecouverteHome articlesdecouvertes={articles['decouvertes'] || []} />                                                            
+                              <LatestPostPortraitHome articlesportrait={articles['mode-beaute'] || []} />                              
                               <br />
                               <br />
-                              <LatestPostBonPlanHome articlesbonplan={articles['bons-plans'] || []} />                                                            
+                              <LatestPostBonPlanHome articlesbonplan={articles['cinema-arts'] || []} />                                                            
                             </div>
                           </div>
                         </div>
@@ -163,7 +163,7 @@ const { articles,latestposts,mostviewed } = recapData;
                             data-widget_type="smartmag-overlay.default"
                           >
                             <div className="elementor-widget-container">
-                              <LatestPostTopStarHome articlestopstar={articles['top-stars'] || []}/>
+                              <LatestPostTopStarHome articlestopstar={articles['decouvertes-bons-plans'] || []}/>
                             </div>
                           </div>
 
@@ -282,7 +282,7 @@ const { articles,latestposts,mostviewed } = recapData;
                                 data-id={24}
                                 data-block='{"id":"grid","props":{"cat_labels":1,"cat_labels_pos":"bot-left","reviews":"radial","post_formats_pos":"center","load_more_style":"a","meta_cat_style":"text","media_style_shadow":0,"meta_sponsor":1,"meta_sponsor_logo":0,"meta_sponsor_label":"Sponsor: {sponsor}","meta_above":[],"meta_below":["author","date","comments"],"meta_sponsor_above":[],"meta_sponsor_below":["sponsor","date"],"media_ratio":"","media_ratio_custom":"","read_more":"none","content_center":0,"posts":6,"pagination":"1","pagination_type":"load-more","space_below":"none","container_width":66,"heading_colors":"force","heading":"*Latest* Posts","excerpt_length":15,"meta_sponsor_items_default":true,"query_type":"custom","sort_days":null,"carousel_dots":null,"is_sc_call":true,"meta_items_default":true}}'
                               >
-                              <LatestPostGalerieHome articlegalery={articles['galerie-photo'] || []}/>
+                              <LatestPostGalerieHome articlegalery={articles['photos-galeries-photos'] || []}/>
                               <LatestPostVideoHome articlevideo={articles['videos'] || []}/>
                               
                               </section>

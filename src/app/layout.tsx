@@ -15,6 +15,7 @@ import TransitionPage from "./components/TransitionPage";
 import Link from "next/link";
 import StickyFooter from "./components/StickyFooter";
 import PubAfterNav from "./components/PubAfterNav";
+import Footer from "./components/Footer";
 
 
 
@@ -46,16 +47,29 @@ export default function RootLayout({
       icon: "typcn typcn-home",
       link: "/",
       subMenu: [
-        { title: "Camer", link: "/categorie/people-camer" },
+        { title: "Portrait", link: "/categorie/people-portrait" },
+        { title: "Top start", link: "/categorie/people-top-stars" },
         { title: "International", link: "/categorie/people-international" },
         { title: "Buzz", link: "/categorie/people-buzz" },
+        { title: "Nouveaux talents", link: "/categorie/people-nouveaux-talents" },
+        { title: "Couples célèbres", link: "/categorie/people-couples-celebres" },
+        { title: "Engagements des stars", link: "/categorie/people-engagements-des-stars" },
+        { title: "Scandales", link: "/categorie/people-scandales" },
+        { title: "Actualités people", link: "/categorie/actualites-people" },
       ],
     },
     {
-      title: "Portraits",
+      title: "Découverte",
       icon: "typcn typcn-camera",
-      link: "/categorie/people-portrait",
-      subMenu: [],
+      link: "#",
+      subMenu: [
+        { title: "Restaurants tendances", link: "/categorie/decouverte-restaurants-tendances" },
+        { title: "Sorties", link: "/categorie/sorties-decouverte" },
+        { title: "Voyages", link: "/categorie/decouvertes-voyages" },
+        { title: "Bonnes Adresses", link: "/categorie/decouverte-bonnes-adresses" },
+        { title: "Idées cadeaux", link: "/categorie/decouvertes-idees-cadeaux" },
+        { title: "Bons Plans", link: "/categorie/decouvertes-bons-plans" },        
+      ],
     },
     {
       title: "Events",
@@ -64,24 +78,26 @@ export default function RootLayout({
       subMenu: [
         { title: "Concerts", link: "/categorie/events-concerts" },
         { title: "Festival", link: "/categorie/events-festivals" },
+        { title: "Galas", link: "/categorie/events-galas" },
+        { title: "Cérémonies", link: "/categorie/events-ceremonies" },
+        { title: "Soirées VIP", link: "/categorie/events-soirees-vip" },
+        { title: "Lancements de produits", link: "/categorie/events-lancements-de-produits" },
       ],
     },
     {
-      title: "Découverte",
+      
+      title: "Mode & Beauté",
       icon: "typcn typcn-camera",
-      link: "#",
+      link: "/categorie/mode-beaute",
       subMenu: [
-        { title: "Cinéma/art", link: "/categorie/decouverte-cinema-arts" },
-        { title: "Cuisine", link: "/categorie/decouverte-cuisine" },
-        { title: "Littérature", link: "/categorie/decouverte-litterature" },
-        { title: "Mode", link: "/categorie/decouverte-mode" },
-        {
-          title: "Santé – bien être",
-          link: "/categorie/decouverte-sante-et-bien-etre",
-        },
+        { title: "Tendances mode", link: "/categorie/tendances-mode" },
+        { title: "Looks de stars", link: "/categorie/Mode-beaute-looks-de-stars" },
+        { title: "Conseils beauté", link: "/categorie/mode-beaute-conseils-beaute" },
+        { title: "Collaborations mode", link: "/categorie/collaborations-mode" },
       ],
-    },
-    {
+    },    
+    
+    /*{
       title: "Bons plans",
       icon: "typcn typcn-star",
       link: "#",
@@ -90,36 +106,59 @@ export default function RootLayout({
         { title: "Party", link: "/categorie/bons-plans-party-after-work" },
         { title: "Tourisme", link: "/categorie/bons-plans-tourisme" },
       ],
-    },
+    },*/
     {
-      title: "Top stars",
+      title: "Cinéma & Arts",
       icon: "typcn typcn-star-outline",
       link: "/categorie/top-stars",
-      subMenu: [],
-    },
-    {
-      title: "Société",
-      icon: "typcn typcn-world",
-      link: "/categorie/societes",
-      subMenu: [],
+      subMenu: [
+        { title: "Sorties de films", link: "/categorie/cinema-arts-sorties-de-films"},
+        { title: "Séries TV", link: "/categorie/cinema-arts-series-tv" },
+        { title: "Interviews d'acteurs", link: "/categorie/cinema-arts-interviews-dacteurs" },
+        { title: "Behind-the-scènes", link: "/categorie/cinema-arts-behind-the-scenes" },
+      ],
     },
     {
       title: "Sports",
       icon: "typcn typcn-flag",
       link: "/categorie/sport",
-      subMenu: [],
+      subMenu: [
+        { title: "Sportifs célèbres", link: "/categorie/sport-sportifs-celebres"},
+        { title: "Événements sportifs", link: "/categorie/sport-evenements-sportifs" },
+        { title: "Vie privée des athlètes", link: "/categorie/vie-privee-des-athletes" },
+        { title: "Style sportif", link: "/categorie/style-sportif" },
+        { title: "Nouveaux talents", link: "/categorie/nouveaux-talents-sport" },
+      ],
     },
     {
-      title: "Galerie Photos",
+      title: "Photos",
       icon: "typcn typcn-image",
-      link: "/categorie/galerie-photos",
-      subMenu: [],
+      link: "/categorie/photos",
+      subMenu: [
+        { title: "Galeries photos", link: "/categorie/photos-galeries-photos"},
+        { title: "Clichés exclusifs", link: "/categorie/photos-cliches-exclusifs"},
+        { title: "Moments volés", link: "/categorie/photos-moments-voles"},
+        { title: "Archives people", link: "/categorie/photos-archives-people"},
+      ],
     },
+    /*
+    {
+      title: "Société",
+      icon: "typcn typcn-world",
+      link: "/categorie/societes",
+      subMenu: [],
+    },*/
+
     {
       title: "Vidéos",
       icon: "typcn typcn-video",
       link: "/categorie/videos",
-      subMenu: [],
+      subMenu: [
+        { title: "Interviews vidéo", link: "/categorie/interviews-video	"},
+        { title: "Reportages", link: "/categorie/videos-reportages"},
+        { title: "Moments backstage", link: "/categorie/videos-moments-backstage"},
+        { title: "Contenu exclusif", link: "/categorie/videos-contenu-exclusif"},
+      ],
     },
   ];
 
@@ -129,15 +168,29 @@ export default function RootLayout({
       icon: "typcn-home",
       link: "/",
       subMenu: [
-        { title: "Camer", link: "/categorie/people-camer" },
+        { title: "Portrait", link: "/categorie/people-portrait" },
+        { title: "Top start", link: "/categorie/people-top-stars" },
         { title: "International", link: "/categorie/people-international" },
         { title: "Buzz", link: "/categorie/people-buzz" },
+        { title: "Nouveaux talents", link: "/categorie/people-nouveaux-talents" },
+        { title: "Couples célèbres", link: "/categorie/people-couples-celebres" },
+        { title: "Engagements des stars", link: "/categorie/people-engagements-des-stars" },
+        { title: "Scandales", link: "/categorie/people-scandales" },
+        { title: "Actualités people", link: "/categorie/actualites-people" },
       ],
     },
     {
-      title: "Portraits",
+      title: "Découverte",
       icon: "typcn-camera",
-      link: "/categorie/people-portrait",
+      link: "#",
+      subMenu: [
+        { title: "Restaurants tendances", link: "/categorie/decouverte-restaurants-tendances" },
+        { title: "Sorties", link: "/categorie/sorties-decouverte" },
+        { title: "Voyages", link: "/categorie/decouvertes-voyages" },
+        { title: "Bonnes Adresses", link: "/categorie/decouverte-bonnes-adresses" },
+        { title: "Idées cadeaux", link: "/categorie/decouvertes-idees-cadeaux" },
+        { title: "Bons Plans", link: "/categorie/decouvertes-bons-plans" },        
+      ],
     },
     {
       title: "Events",
@@ -146,24 +199,25 @@ export default function RootLayout({
       subMenu: [
         { title: "Concerts", link: "/categorie/events-concerts" },
         { title: "Festival", link: "/categorie/events-festivals" },
+        { title: "Galas", link: "/categorie/events-galas" },
+        { title: "Cérémonies", link: "/categorie/events-ceremonies" },
+        { title: "Soirées VIP", link: "/categorie/events-soirees-vip" },
+        { title: "Lancements de produits", link: "/categorie/events-lancements-de-produits" },
       ],
     },
     {
-      title: "Découverte",
-      icon: "typcn-camera",
-      link: "#",
+      title: "Mode & Beauté",
+      icon: "typcn typcn-camera",
+      link: "/categorie/mode-beaute",
       subMenu: [
-        { title: "Cinéma/art", link: "/categorie/decouverte-cinema-arts" },
-        { title: "Cuisine", link: "/categorie/decouverte-cuisine" },
-        { title: "Littérature", link: "/categorie/decouverte-litterature" },
-        { title: "Mode", link: "/categorie/decouverte-mode" },
-        {
-          title: "Santé – bien être",
-          link: "/categorie/decouverte-sante-et-bien-etre",
-        },
+        { title: "Tendances mode", link: "/categorie/tendances-mode" },
+        { title: "Looks de stars", link: "/categorie/Mode-beaute-looks-de-stars" },
+        { title: "Conseils beauté", link: "/categorie/mode-beaute-conseils-beaute" },
+        { title: "Collaborations mode", link: "/categorie/collaborations-mode" },
       ],
-    },
-    {
+    },       
+    
+    /*{
       title: "Bons plans",
       icon: "typcn-star",
       link: "#",
@@ -172,45 +226,75 @@ export default function RootLayout({
         { title: "Party", link: "/categorie/bons-plans-party-after-work" },
         { title: "Tourisme", link: "/categorie/bons-plans-tourisme" },
       ],
-    },
+    },*/
     {
-      title: "Top stars",
+      title: "Cinéma & Arts",
       icon: "typcn-star-outline",
       link: "/categorie/top-stars",
-    },
-    {
-      title: "Société",
-      icon: "typcn-world",
-      link: "/categorie/societes",
+      subMenu: [
+        { title: "Sorties de films", link: "/categorie/cinema-arts-sorties-de-films"},
+        { title: "Séries TV", link: "/categorie/cinema-arts-series-tv" },
+        { title: "Interviews d'acteurs", link: "/categorie/cinema-arts-interviews-dacteurs" },
+        { title: "Behind-the-scènes", link: "/categorie/cinema-arts-behind-the-scenes" },
+      ],
     },
     {
       title: "Sports",
       icon: "typcn-flag",
       link: "/categorie/sport",
+      subMenu: [
+        { title: "Sportifs célèbres", link: "/categorie/sport-sportifs-celebres"},
+        { title: "Événements sportifs", link: "/categorie/sport-evenements-sportifs" },
+        { title: "Vie privée des athlètes", link: "/categorie/vie-privee-des-athletes" },
+        { title: "Style sportif", link: "/categorie/style-sportif" },
+        { title: "Nouveaux talents", link: "/categorie/nouveaux-talents-sport" },
+      ],
     },
     {
-      title: "Galerie Photos",
+      title: "Photos",
       icon: "typcn-image",
-      link: "/categorie/galerie-photos",
-    },
+      link: "/categorie/photos",
+      subMenu: [
+        { title: "Galeries photos", link: "/categorie/photos-galeries-photos"},
+        { title: "Clichés exclusifs", link: "/categorie/photos-cliches-exclusifs"},
+        { title: "Moments volés", link: "/categorie/photos-moments-voles"},
+        { title: "Archives people", link: "/categorie/photos-archives-people"},
+      ],
+    },    
+    
+    /*{
+      title: "Société",
+      icon: "typcn-world",
+      link: "/categorie/societes",
+    },*/
+
     {
       title: "Vidéos",
       icon: "typcn-video",
       link: "/categorie/videos",
+      subMenu: [
+        { title: "Interviews vidéo", link: "/categorie/interviews-video	"},
+        { title: "Reportages", link: "/categorie/videos-reportages"},
+        { title: "Moments backstage", link: "/categorie/videos-moments-backstage"},
+        { title: "Contenu exclusif", link: "/categorie/videos-contenu-exclusif"},
+      ],
     },
   ];
 
   const navItems = [
     { title: "PEOPLE", icon: "typcn-home", link: "/categorie/people" },
-    { title: "PORTRAITS", icon: "typcn-camera", link: "/categorie/people-portrait" },
-    { title: "EVENTS", icon: "typcn-calendar", link: "/categorie/events" },
     { title: "DECOUVERTES", icon: "typcn-camera", link: "/categorie/decouvertes" },
+    { title: "EVENTS", icon: "typcn-calendar", link: "/categorie/events" },
+    { title: "MODE & BEAUTE", icon: "typcn-calendar", link: "/categorie/mode-beaute" },
+    { title: "SPORTS", icon: "typcn-flag", link: "/categorie/sport" },    
+    { title: "PHOTOS", icon: "typcn-image", link: "/categorie/photos" },
+    { title: "VIDEOS", icon: "typcn-video", link: "/categorie/videos" },
+    /*
+    { title: "PORTRAITS", icon: "typcn-camera", link: "/categorie/people-portrait" },
     { title: "BONS PLANS", icon: "typcn-star", link: "/categorie/bons-plans" },
     { title: "TOP STARS", icon: "typcn-star-outline", link: "/categorie/top-star" },
     { title: "SOCIETES", icon: "typcn-world", link: "/categorie/societes" },
-    { title: "SPORTS", icon: "typcn-flag", link: "/categorie/sport" },
-    { title: "GALERIE PHOTOS", icon: "typcn-image", link: "/categorie/galerie-photos" },
-    { title: "VIDEOS", icon: "typcn-video", link: "/categorie/videos" },
+     */
   ];
 
 
@@ -598,7 +682,7 @@ export default function RootLayout({
                       }`}
                     >
                       <Link href={menu.link}>
-                        <i className={menu.icon} /> {menu.title}
+                        <i className={menu.icon} /> {menu.title} 
                       </Link>
 
                       {menu.subMenu.length > 0 && (
@@ -785,7 +869,8 @@ export default function RootLayout({
                               }`}
                             >
                               <Link href={item.link}>
-                                <i className={`typcn ${item.icon}`} />{" "}
+                              <i className={`typcn ${item.icon}`} style={{marginLeft:2}}/>{" "}
+                              &nbsp;
                                 {item.title}
                               </Link>
                               {item.subMenu && (
@@ -920,553 +1005,7 @@ export default function RootLayout({
               </div>
             </div>
 
-            <footer className="main-footer cols-gap-lg footer-bold s-dark">
-              <div className="upper-footer bold-footer-upper">
-                <div className="ts-contain wrap">
-                  <div className="widgets row cf">
-                    <div className="widget col-md-3 widget-about">
-                      <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                        <h5 className="heading" style={{ color: "#0a99da" }}>
-                          A Propos de Nous
-                        </h5>
-                      </div>
-                      <div className="inner ">
-                        <div className="image-logo">
-                        <Link href={"/"}>
-                          <Image
-                            src="/images/logo-people243.png"
-                            width={180}
-                            height={80}
-                            alt="Logo"
-                          />
-                          </Link>
-                        </div>
-                        <div className="base-text about-text">
-                          <p>
-                            Découvrez en live l actualité people en photos et
-                            vidéos. Toutes les news et actualités de stars, les
-                            meilleurs et les pires look de vos stars.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
-                      <div className="block">
-                        <section
-                          className="block-wrap block-posts-small block-sc mb-none"
-                          data-id={28}
-                        >
-                          <Link href={"/categorie/people"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              People
-                            </h5>
-                          </div>
-                          </Link>
-                          <div className="block-content">
-                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <Link href={"/categorie/people-camer"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Camer
-                                      </Link>
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/people-international"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        International
-                                      </Link>
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <Link href={"/categorie/people-buzz	"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Buzz
-                                      </Link>                                      
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                            </div>
-                          </div>
-                        </section>
-                      </div>
-                      <br />
-                      <br />
-                      <section
-                        className="block-wrap block-posts-small block-sc mb-none"
-                        data-id={28}
-                      >
-                        <Link href={"/categorie/events"}>
-                        <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                          <h5 className="heading" style={{ color: "#0a99da" }}>
-                            Events
-                          </h5>
-                        </div>
-                        </Link>
-                        <div className="block-content">
-                          <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                            <article className="l-post small-post small-a-post m-pos-left">
-                              <div className="content">
-                                <div className="post-meta post-meta-a post-meta-left has-below">
-                                  <h4 className="is-title post-title">
-                                      <Link href={"/categorie/events-concerts"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Concert
-                                      </Link>                                                                          
-                                  </h4>
-                                </div>
-                              </div>
-                            </article>
-                            <article className="l-post small-post small-a-post m-pos-left">
-                              <div className="content">
-                                <div className="post-meta post-meta-a post-meta-left has-below">
-                                  <h4 className="is-title post-title">
-                                  <Link href={"/categorie/events-festivals"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Festival
-                                      </Link>                                                                                                              
-                                  </h4>
-                                </div>
-                              </div>
-                            </article>
-                          </div>
-                        </div>
-                        <br/><br/>
-                        <Link href={"/categorie/top-stars"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Top stars
-                            </h5>
-                          </div>
-                          </Link>
-                      </section>
-                    </div>
-                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
-                      <div className="block">
-                        <section
-                          className="block-wrap block-posts-small block-sc mb-none"
-                          data-id={28}
-                        >
-                          <Link href={"/categorie/decouvertes"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Découverte
-                            </h5>
-                          </div>
-                          </Link>
-                          <div className="block-content">
-                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-
-                                    <Link href={"/categorie/decouverte-cinema-arts"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Cinéma/art
-                                      </Link>                                                                                                              
-                                      
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/decouverte-cuisine"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Cuisine
-                                      </Link>   
-                                      
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/decouverte-litterature"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Littérature
-                                      </Link>                                         
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <Link href={"/categorie/decouverte-mode"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Mode
-                                      </Link>                                                                               
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/decouverte-sante-et-bien-etre"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Santé – bien être
-                                      </Link>                                                                                                                     
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                            </div>
-                          </div>
-                          <br/>
-                          <br/>
-                          <Link href={"/categorie/societes"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Société
-                            </h5>
-                          </div>
-                            </Link>                          
-                        </section>
-                      </div>
-                    </div>
-                    <div className="widget col-md-2 ts-block-widget smartmag-widget-posts-small">
-                      <div className="block">
-                        <section
-                          className="block-wrap block-posts-small block-sc mb-none"
-                          data-id={28}
-                        >
-                          <Link href={"/categorie/bons-plans"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Bons Plans
-                            </h5>
-                          </div>
-                          </Link>
-                          <div className="block-content">
-                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/bons-plans-restaurants"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Restaurant
-                                      </Link>                                                                                                                                                           
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/bons-plans-party-after-work"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Party
-                                      </Link>                                                                                                                                                           
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                    <Link href={"/categorie/bons-plans-tourisme"} className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Tourisme
-                                      </Link>                                                                                                                                                           
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                            </div>
-                          </div>
-                          <br />
-                          <br />
-                         
-
-                 
-                            <Link href={"/categorie/sport"}>
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Sport
-                            </h5>
-                          </div>
-                          </Link>
-                        </section>
-                      </div>
-                    </div>
-                    <div className="widget col-md-3 ts-block-widget smartmag-widget-posts-small">
-                      <div className="block">
-                        <section
-                          className="block-wrap block-posts-small block-sc mb-none"
-                          data-id={28}
-                        >
-                          <div className="widget-title block-head block-head-ac block-head block-head-ac block-head-b is-left has-style">
-                            <h5
-                              className="heading"
-                              style={{ color: "#0a99da" }}
-                            >
-                              Nous Contacter
-                            </h5>
-                          </div>
-                          <div className="block-content">
-                            <div className="loop loop-small loop-small-a loop-sep loop-small-sep grid grid-1 md:grid-1 sm:grid-1 xs:grid-1">
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <a href="#" className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Carrefour Elig Essono, Yaoundé,
-                                        Yaoundé Cameroun
-                                      </a>
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <a href="#" className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        contact@cynomedia.com
-                                      </a>
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                              <article className="l-post small-post small-a-post m-pos-left">
-                                <div className="content">
-                                  <div className="post-meta post-meta-a post-meta-left has-below">
-                                    <h4 className="is-title post-title">
-                                      <a href="#" className="white-title">
-                                        <i className="typcn typcn-chevron-right" />{" "}
-                                        Tel: +237 6 78 82 04 04
-                                      </a>
-                                    </h4>
-                                  </div>
-                                </div>
-                              </article>
-                            </div>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="lower-footer bold-footer-lower">
-                <div className="ts-contain inner">
-                  <div className="spc-social-block spc-social spc-social-b ">
-
-                  
-
-                    <a
-                      href="https://www.facebook.com/people243/"
-                      className="link service s-facebook"
-                      target="_blank"
-                      rel="nofollow noopener"
-                    >
-                      <i className="icon tsi tsi-facebook" />{" "}
-                      <span className="visuallyhidden">Facebook</span>
-                    </a>
-                    <a
-                      href="https://x.com/People243C/"
-                      className="link service s-twitter"
-                      target="_blank"
-                      rel="nofollow noopener"
-                    >
-                      <i className="icon tsi tsi-twitter" />{" "}
-                      <span className="visuallyhidden">X (Twitter)</span>
-                    </a>                    
-{/*
-                    <a
-                    href="https://www.dailymotion.com/people234TV"
-                    className="link service s-instagram"
-                    target="_blank"
-                    rel="nofollow noopener"
-                    style={{fontWeight:700}}
-                  >
-                    
-                    {" "}d
-
-                  </a>
-*/}
-                  
-                    <a
-                      href="https://www.instagram.com/peoplecd243/"
-                      className="link service s-instagram"
-                      target="_blank"
-                      rel="nofollow noopener"
-                    >
-                      <i className="icon tsi tsi-instagram" />{" "}
-                      <span className="visuallyhidden">Instagram</span>
-                    </a>
-                    {/*
-                    <a
-                      href="#"
-                      className="link service s-pinterest"
-                      target="_blank"
-                      rel="nofollow noopener"
-                    >
-                      <i className="icon tsi tsi-pinterest-p" />{" "}
-                      <span className="visuallyhidden">Pinterest</span>
-                    </a>
-                    */}
-                  </div>
-                  <div className="links">
-                    <div className="menu-footer-links-container">
-                      <p style={{ color: "#0a99da", fontWeight: "bolder" }}>
-                        Les autres sites du Réseau:{" "}
-                      </p>
-                      <ul
-                        id="menu-footer-links"
-                        className="menu"
-                        style={{ justifyContent: "flex-start" }}
-                      >
-{/*
-                        <li
-                          id="menu-item-352"
-                          className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-352"
-                        >
-                          <a
-                            href="#"
-                            aria-current="page"
-                            className="white-title"
-                          >
-                            <i className="typcn typcn-world" /> people225.com
-                          </a>
-                        </li>
-                        <li
-                          id="menu-item-354"
-                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-10 menu-item-354"
-                        >
-                          <a
-                            href="#"
-                            className="white-title"
-                          >
-                            <i className="typcn typcn-world" /> people223.com
-                          </a>
-                        </li>
-                        <li
-                          id="menu-item-355"
-                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-6 menu-item-355"
-                        >
-                          <a
-                            href="#"
-                            className="white-title"
-                          >
-                            <i className="typcn typcn-world" /> people228.com
-                          </a>
-                        </li>
-                        <li
-                          id="menu-item-357"
-                          className="menu-item menu-item-type-taxonomy menu-item-object-category menu-cat-11 menu-item-357"
-                        >
-                          <a
-                            href="#"
-                            className="white-title"
-                          >
-                            <i className="typcn typcn-world" /> people229.com
-                          </a>
-                        </li>
-*/}
-                        <li
-                          id="menu-item-353"
-                          className="menu-item menu-item-type-custom menu-item-object-custom menu-item-353"
-                        >
-                          <a href="https://people237.com/" className="white-title">
-                            <i className="typcn typcn-world" /> people237.com
-                          </a>
-                        </li>
-                        <li
-                          id="menu-item-356"
-                          className="menu-item menu-item-type-custom menu-item-object-custom menu-item-356"
-                        >
-                          <a href="https://journaldekinshasa.com/" className="white-title">
-                            <i className="typcn typcn-world" /> 
-                            journaldekinshasa.com
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="copyright white-title">
-                    © 2025 Copyright People243.com ©, All Rights Reserved. 
-                     | <Link href={'/mentions-legales'} style={{color:"rgb(10 153 219)"}}>Mentions Légales</Link>{" "}                      
-                     
-                  </div>
-                  <br/>
-                  <div
-  className="copyright-text"
-  style={{ color: "white", fontWeight: 600, marginTop: 0, textAlign: "center" }}
->
-  <p style={{ color: "white", fontSize: 13, fontWeight: 600, marginBottom: 0 }}>
-    <span style={{ color: "white", fontWeight: 600 }}>
-      Développé par &nbsp;
-      <a
-        target="_blank"
-        href="https://cynomedia.com/"
-        style={{ textDecoration: "none" }}
-      >
-        <img
-          alt="logo cynomedia"
-          loading="lazy"
-          width={90}
-          height={31}
-          decoding="async"
-          data-nimg={1}
-          style={{ color: "transparent", marginTop: "-10px" }}
-          src="/images/logo-cynomedia.webp"
-        />
-      </a>
-    </span>
-  </p>
-</div>
-<br/>
-                </div>
-              </div>
-            </footer>
+            <Footer/>
           </div>
           {/* .main-wrap */}
         </>

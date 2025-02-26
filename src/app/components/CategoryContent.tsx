@@ -114,7 +114,7 @@ const CategoryContent = ({
                               style={{ fontSize: 30 }}
                             />{" "}
                             */}
-                            {categoryName}
+                            {he.decode(categoryName)}
                           </span>
                         </h4>
                       </div>

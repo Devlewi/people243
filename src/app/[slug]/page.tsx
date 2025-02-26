@@ -7,7 +7,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import SidebarUnHome from "../components/SidebarUnHome";
 import NotFound from "../not-found";
 import ContentDetailPost from "../components/ContentDetailPost";
-
+import he from "he";
 
 
 interface Category {
@@ -194,7 +194,8 @@ const ArticleDetail = async ({
           className="category term-color-15"
           rel="category"
         >
-          {category.name} {/* Affiche le nom de la catégorie */}
+
+          {he.decode(category.name)}
         </Link>
         {/* Séparateur entre les catégories, sauf pour la dernière */}
         {index < article.categoriesdetails.length - 1 && " "}

@@ -61,7 +61,7 @@ const LatestPostSocieteHome: React.FC<LatestPostSocieteHomeProps> = ({
                                           <div className="post-meta-items meta-above">
                                             <span className="meta-item cat-labels">
                                               <Link
-                                                href="/categorie/culture/"
+                                                href="#"
                                                 className="category term-color-15"
                                                 rel="category"
                                                 tabIndex={-1}

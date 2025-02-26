@@ -64,7 +64,7 @@ const LatestPostVideoHome: React.FC<LatestPostVideoHomeProps> = ({
                 </span>
                 <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
                   <Link
-                    href="/categorie/culture/"
+                    href="#"
                     className="category term-color-1"
                     rel="category"
                     tabIndex={-1}
