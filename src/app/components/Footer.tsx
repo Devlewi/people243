@@ -776,7 +776,7 @@ export default function Footer() {
               <div className="content">
                 <div className="post-meta post-meta-a post-meta-left has-below">
                   <h4 className="is-title post-title">
-                    <Link href={"/categorie/nouveau-talent-sport"} className="white-title">
+                    <Link href={"/categorie/nouveaux-talents-sport"} className="white-title">
                       <i className="typcn typcn-chevron-right" /> Nouveaux talents
                     </Link>
                   </h4>
