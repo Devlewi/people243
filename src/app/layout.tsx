@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap-grid.min.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import Script from "next/script";
 import NewsleterComponentHeader from "./components/NewsleterComponentHeader";
-
 import { usePathname } from "next/navigation";
 import BottomMenu from "./components/BottomMenu";
 import Image from "next/image";
@@ -16,9 +15,6 @@ import Link from "next/link";
 import StickyFooter from "./components/StickyFooter";
 import PubAfterNav from "./components/PubAfterNav";
 import Footer from "./components/Footer";
-
-
-
 
 
 //import $ from "jquery"; // Importer jQuery directement
