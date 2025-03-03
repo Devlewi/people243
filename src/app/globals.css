@@ -6941,14 +6941,23 @@ article{
   
 
   .post-title-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Fixe le nombre de lignes à 2 */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 4rem; /* Ajuste la hauteur en fonction de la police */
-}
-
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Fixe le nombre de lignes à 2 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4rem; /* Ajuste la hauteur en fonction de la police */
+  }
+    
+  .post-exercpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Fixe le nombre de lignes à 2 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3rem; /* Ajuste la hauteur en fonction de la police */
+  }
+  
 
 
 .post-title a:hover,.post-title:hover {

@@ -50,7 +50,8 @@ const { articles,latestposts,mostviewed } = recapData;
                   data-elementor-id={6}
                   className="elementor elementor-6"
                 >
-                  {/**section people 4 latest posts */}
+
+                  {/*
                   <section
                     className="has-el-gap el-gap-default elementor-section elementor-top-section elementor-element elementor-element-aab5c4e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                     data-id="aab5c4e"
@@ -70,17 +71,16 @@ const { articles,latestposts,mostviewed } = recapData;
                             data-widget_type="smartmag-grid.default"
                           >
                             <div className="elementor-widget-container">
-                              {/* bloc de 4 articles peoples */}
-                              {/*<LatestPostPeopleHome/> */}
+
                               <LatestPostPeopleHome articlespeople={articles['people'] || []} />                              
                             </div>
                           </div>
-                          {/* espace publicitaire */}
-                          {/* <Banner728x80Home/> */}
+
                         </div>
                       </div>
                     </div>
                   </section>
+                  */}
 
                   {/**section portrait 2 latest posts */}
                  
