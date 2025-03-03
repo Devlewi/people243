@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import LatestPostPeopleHome from "./LatestPostPeopleHome";
+//import LatestPostPeopleHome from "./LatestPostPeopleHome";
 import LatestPostPortraitHome from "./LatestPostPortraitHome";
 import LatestPostEventHome from "./LatestPostEventHome";
 import LatestPostBonPlanHome from "./LatestPostBonPlanHome";
