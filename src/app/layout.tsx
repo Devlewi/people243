@@ -408,6 +408,9 @@ export default function RootLayout({
         <>
           <link rel="alternate" type="application/rss+xml" title="Flux RSS People243" href="/feed" />
 
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760088965124508"
+     crossOrigin="anonymous"></script>
+
           {/* Typicons CSS */}
           <link
             href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css"
