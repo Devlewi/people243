@@ -6,7 +6,7 @@ import HomePageContentComponent from "./components/HomePageContentComponent";
 
 export const metadata: Metadata = {
   title: "ACCUEIL | PEOPLE 243",
-  description: "Page d'accueil PEOPLE 243, découvrez nos dernières actualités.",
+  description: "Découvrez en live l'actualité people en photos et vidéos. Toutes les news et actualités de stars, les meilleurs et les pires look de vos stars.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
@@ -61,7 +61,7 @@ export default async function Home() {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <title>PEOPLE 237</title>
+        <title>PEOPLE 243</title>
 
       </Head>
           {/* Passer les données à FeaturedInfo */}          
