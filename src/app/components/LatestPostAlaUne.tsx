@@ -7,6 +7,7 @@ import { removeTags } from "@/utils/removeTags";
 import { formatNumber } from "@/utils/formatedNumber";
 import { truncateTitle } from "@/utils/stringUtils";
 import he from "he";
+import Image from "next/image";
 
 type Article = {
   id: number;
@@ -61,11 +62,16 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                     className="image-link media-ratio ratio-16-9"
                     title="L’acteur Hervé Nguetch n’est plus un coeur à prendre"
                   >
-                    <img
-                      src={article.featured_image ? article.featured_image : "/images/default.png"}
-                      alt={article.title}
-                      
-                    />
+                    <Image
+  src={article.featured_image ? article.featured_image : "/images/default.png"}
+  alt={article.title}
+  layout="intrinsic" // Change "fill" si besoin
+  width={500} // Remplace par la largeur souhaitée
+  height={300} // Remplace par la hauteur souhaitée
+  objectFit="cover"
+  quality={75}
+  priority={false}
+/>
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
                     <Link
