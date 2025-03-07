@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {    
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: 'http',
         hostname: 'localhost',
         pathname: '/wp-content/uploads/**', // Autorise les images depuis localhost
       },

@@ -65,12 +65,12 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                     <Image
   src={article.featured_image ? article.featured_image : "/images/default.png"}
   alt={article.title}
-  layout="intrinsic" // Change "fill" si besoin
-  width={500} // Remplace par la largeur souhaitée
-  height={300} // Remplace par la hauteur souhaitée
+  width={500}
+  height={300}
   objectFit="cover"
   quality={75}
   priority={false}
+  unoptimized={true} // Désactive l'optimisation pour voir si ça vient de Next
 />
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
