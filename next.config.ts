@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/uploads/**",
       },
     ],
-    domains: ['www.people243.com','people243.com','controlpanel.people243.com', 'people243.vercel.app','client.cynomedia-africa.com','people237.com'], // Ajoutez ici le domaine de votre image
+    domains: ['people243.vercel.app','www.people243.com','people243.com','controlpanel.people243.com', 'people243.vercel.app','client.cynomedia-africa.com','people237.com'], // Ajoutez ici le domaine de votre image
   },
   
 };
