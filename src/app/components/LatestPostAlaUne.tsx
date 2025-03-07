@@ -8,6 +8,7 @@ import { formatNumber } from "@/utils/formatedNumber";
 import { truncateTitle } from "@/utils/stringUtils";
 import he from "he";
 import Image from "next/image";
+import { transformImageUrl } from "../utils/imageUtils";
 
 type Article = {
   id: number;
@@ -64,7 +65,7 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                   >
 
 <Image
-  src={article.featured_image ? article.featured_image : "/images/default.png"}
+  src={article.featured_image ? transformImageUrl(article.featured_image) : "/images/default.png"}
   alt={article.title}
   width={500}
   height={300}

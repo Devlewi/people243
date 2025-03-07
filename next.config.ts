@@ -16,9 +16,19 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/uploads/**",
       },
     ],
-    domains: ['controlpanel.people243.com','localhost','www.people243.com','people243.com','people243.vercel.app','client.cynomedia-africa.com'], // Ajoutez ici le domaine de votre image
+    domains: ['controlpanel.people243.com','localhost','www.people243.com','people243.com','client.cynomedia-africa.com'], // Ajoutez ici le domaine de votre image
   },
-  
+
+  // D'autres configurations possibles si nécessaire
+  async rewrites() {
+    return [
+      {
+        source: '/api/images/:path*', // Toutes les requêtes qui commencent par '/api/images/'
+        destination: 'https://controlpanel.people243.com/wp-content/uploads/:path*', // Destination vers le serveur WordPress
+      },
+    ];
+  },
+
 };
 
 export default nextConfig;
