@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {    
+  images: {
     remotePatterns: [
       {
         protocol: "https",
@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       "people243.vercel.app",
       "client.cynomedia-africa.com"
     ],
+    formats: ["image/avif", "image/webp"], // Active WebP/AVIF pour l'optimisation
   },
 };
 

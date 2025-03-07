@@ -70,7 +70,6 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
   height={300}
   objectFit="cover"
   quality={75}
-  unoptimized={true} // Désactive l'optimisation Next.js
 />
 
                   </Link>
