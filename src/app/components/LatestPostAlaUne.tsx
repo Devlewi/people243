@@ -62,7 +62,8 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                     className="image-link media-ratio ratio-16-9"
                     title="L’acteur Hervé Nguetch n’est plus un coeur à prendre"
                   >
-                    <Image
+
+<Image
   src={article.featured_image ? article.featured_image : "/images/default.png"}
   alt={article.title}
   width={500}
@@ -70,7 +71,6 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
   objectFit="cover"
   quality={75}
   priority={false}
-  unoptimized={true} // Désactive l'optimisation pour voir si ça vient de Next
 />
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
@@ -116,6 +116,8 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                             }}
                           />{" "}
                           {article.author}
+
+                          voila: {article.featured_image}
                         </a>
                       </span>
                     </div>
