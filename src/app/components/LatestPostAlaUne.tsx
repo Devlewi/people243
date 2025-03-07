@@ -70,8 +70,9 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
   height={300}
   objectFit="cover"
   quality={75}
-  priority={false}
+  unoptimized={true} // Désactive l'optimisation Next.js
 />
+
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
                     <Link
@@ -117,7 +118,6 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                           />{" "}
                           {article.author}
 
-                          voila: {article.featured_image}
                         </a>
                       </span>
                     </div>
