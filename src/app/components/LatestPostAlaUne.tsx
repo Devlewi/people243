@@ -1,4 +1,5 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
+//import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale"; // Pour la langue française
@@ -60,13 +61,10 @@ const LatestPostAlaUne: React.FC<LatestPostAlaUneProps> = ({
                     className="image-link media-ratio ratio-16-9"
                     title="L’acteur Hervé Nguetch n’est plus un coeur à prendre"
                   >
-                    <Image
+                    <img
                       src={article.featured_image ? article.featured_image : "/images/default.png"}
                       alt={article.title}
-                      layout="fill"
-                      objectFit="cover"
-                      quality={75}
-                      priority={false}
+                      
                     />
                   </Link>
                   <span className="cat-labels cat-labels-overlay c-overlay p-bot-left">
