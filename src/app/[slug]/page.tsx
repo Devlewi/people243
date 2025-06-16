@@ -24,14 +24,6 @@ export async function generateMetadata({
 }) {
   const { slug } = await params; // Attendez la promesse
 
-
-  //const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/wp-json/custom-api/publications/slug-categorie/${slug}?page=${currentPage}`);
-  /*
-  const res = await fetch(
-    `https://controlpanel.people237.com/wp-json/custom/v1/article/${slug}`
-  );
-  */
-
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/wp-json/custom/v1/article/${slug}`,{
       next: { revalidate: 60 },

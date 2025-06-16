@@ -1007,6 +1007,22 @@ export default function RootLayout({
             <Footer/>
           </div>
           {/* .main-wrap */}
+      
+      {/* Google Analytics */}
+      <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-RZWJLLSJM8"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RZWJLLSJM8', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
         </>
       </body>
     </html>
