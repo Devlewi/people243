@@ -12,7 +12,7 @@ import BottomMenu from "./components/BottomMenu";
 import Image from "next/image";
 import TransitionPage from "./components/TransitionPage";
 import Link from "next/link";
-import StickyFooter from "./components/StickyFooter";
+//import StickyFooter from "./components/StickyFooter";
 import PubAfterNav from "./components/PubAfterNav";
 import Footer from "./components/Footer";
 
@@ -998,7 +998,7 @@ export default function RootLayout({
                 {/*loading && <Loader />} {/* Affichage du loader */}
                 {isTransitioning && <TransitionPage />}
                 {children}
-                <StickyFooter />
+                {/* <StickyFooter /> */}
                 <BottomMenu />
 
               </div>
