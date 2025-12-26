@@ -16,7 +16,7 @@ interface Article {
   slug: string;
   title: string;
   featured_image: string;
-  photo_credit: string;
+  photo_credit?: string; 
   category: string;
   views: number;
   date_published: string;
