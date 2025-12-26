@@ -18,6 +18,7 @@ interface FeaturedInfoProps {
     excerpt: string;
     link: string;
     featured_image: string;
+    photo_credit: string;
     views: number;
     date_published: string; // Précise que c'est une chaîne de caractères
     slug: string; // Précise que c'est une chaîne de caractères

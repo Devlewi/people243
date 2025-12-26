@@ -12,6 +12,7 @@ type Article = {
   excerpt: string;
   link: string;
   featured_image: string;
+  photo_credit: string;
   views: number;
   date_published: string; // Précise que c'est une chaîne de caractères
   slug: string;
@@ -81,6 +82,14 @@ const SidebarDeuxHome: React.FC<LatestPostSidebarDeuxHomeProps> = ({
                       {formatNumber(article.views,'fr-FR')} vues
                     </Link>
                   </span>
+                  {/* Crédit photo à l'extrême droite (même alignement) */}
+        {article.photo_credit && (
+          <span className="cat-labels cat-labels-overlay c-overlay p-bot-right">
+            <span className="category" style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: '#fff', fontSize: '5px' }}>
+              {article.photo_credit}
+            </span>
+          </span>
+        )}
                 </div>
                 <div className="content">
                   <div className="post-meta post-meta-a post-meta-left has-below">

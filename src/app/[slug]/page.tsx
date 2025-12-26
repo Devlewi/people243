@@ -310,14 +310,34 @@ const ArticleDetail = async ({
                         </a>
                       </div>
 
-                      <div className="single-featured">
+                      <div className="single-featured" style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
                         <Image
                           src={article.featured_image ? article.featured_image : "/images/default.png"}
                           alt="Image de coco lago"
                           layout="intrinsic"
                           width={788}
                           height={515}
+                          style={{ display: 'block', width: '100%', height: 'auto' }}
                         />
+
+                        {/* BLOC CRÉDIT PHOTO */}
+  {article.photo_credit && (
+    <div style={{
+      position: 'absolute',
+      bottom: '10px',
+      right: '10px',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fond noir transparent
+      color: '#ffffff',
+      padding: '3px 10px',
+      fontSize: '11px',
+      borderRadius: '4px',
+      zIndex: 5,
+      pointerEvents: 'none', // Pour ne pas gêner le clic sur l'image si besoin
+      boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+    }}>
+    {article.photo_credit}
+    </div>
+  )}
                       </div>
 
                       <br />
