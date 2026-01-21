@@ -225,7 +225,7 @@ const { articles,latestposts,mostviewed } = recapData;
                             data-widget_type="smartmag-overlay.default"
                           >
                             <div className="elementor-widget-container">
-                              <LatestPostSocieteHome articlesociete={articles['societes'] || []}/>                              
+                              <LatestPostSocieteHome articlesociete={articles['people'] || []}/>                              
                             </div>
                           </div>
                           <div
