@@ -320,7 +320,7 @@ const ArticleDetail = async ({
                           style={{ display: 'block', width: '100%', height: 'auto' }}
                         />
 
-                        {/* BLOC CRÉDIT PHOTO */}
+{/* BLOC CRÉDIT PHOTO */}
   {article.photo_credit && (
     <div style={{
       position: 'absolute',

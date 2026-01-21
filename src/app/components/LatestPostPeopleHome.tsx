@@ -80,7 +80,7 @@ const LatestPostPeopleHome: React.FC<LatestPostPeopleHomeProps> = ({
                       {formatNumber(article.views,'fr-FR')} vues
                     </Link>
                   </span>
-                  {/* Crédit photo à l'extrême droite (même alignement) */}
+{/* Crédit photo à l'extrême droite (même alignement) */}
         {article.photo_credit && (
           <span className="cat-labels cat-labels-overlay c-overlay p-bot-right">
             <span className="category" style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: '#fff', fontSize: '10px' }}>

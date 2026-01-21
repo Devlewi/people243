@@ -127,14 +127,31 @@ export default function RootLayout({
       ],
     },
     {
-      title: "Photos",
+      title: "Medias",
       icon: "typcn typcn-image",
-      link: "/categorie/photos",
+      link: "/categorie/media",
       subMenu: [
-        { title: "Galeries photos", link: "/categorie/photos-galeries-photos"},
-        { title: "Clichés exclusifs", link: "/categorie/photos-cliches-exclusifs"},
-        { title: "Moments volés", link: "/categorie/photos-moments-voles"},
-        { title: "Archives people", link: "/categorie/photos-archives-people"},
+        { title: "Galeries photos", link: "/categorie/media-galeries-photos"},
+        { title: "Clichés exclusifs", link: "/categorie/media-cliches-exclusifs"},
+        { title: "Moments volés", link: "/categorie/media-moments-voles"},
+        { title: "Archives people", link: "/categorie/media-archives-people"},
+        { title: "Interviews vidéo", link: "/categorie/interviews-video"},
+        { title: "Reportages", link: "/categorie/videos-reportages"},
+        { title: "Moments backstage", link: "/categorie/videos-moments-backstage"},
+        { title: "Contenu exclusif", link: "/categorie/videos-contenu-exclusif"},
+      ],
+    },
+    {
+      title: "Musique",
+      icon: "typcn typcn-image",
+      link: "/categorie/media",
+      subMenu: [
+        { title: "Nouveaux singles & albums", link: "/categorie/nouveaux-singles-albums"},
+        { title: "Clips & vidéos musicales", link: "/categorie/clips-videos-musicales"},
+        { title: "Interviews d’artistes", link: "/categorie/interviews-dartistes"},
+        { title: "Concerts & tournées", link: "/categorie/concerts-tournees"},
+        { title: "Top charts & hits du moment", link: "/categorie/top-charts-hits-du-moment"},
+        { title: "Découverte de talents émergents", link: "/categorie/decouverte-de-talents-emergents"},
       ],
     },
     /*
@@ -143,19 +160,18 @@ export default function RootLayout({
       icon: "typcn typcn-world",
       link: "/categorie/societes",
       subMenu: [],
-    },*/
-
+    },
+    
     {
       title: "Vidéos",
       icon: "typcn typcn-video",
       link: "/categorie/videos",
-      subMenu: [
-        { title: "Interviews vidéo", link: "/categorie/interviews-video	"},
-        { title: "Reportages", link: "/categorie/videos-reportages"},
-        { title: "Moments backstage", link: "/categorie/videos-moments-backstage"},
-        { title: "Contenu exclusif", link: "/categorie/videos-contenu-exclusif"},
+      subMenu: [        
       ],
     },
+    */
+
+    
   ];
 
   const menuItemsD = [
@@ -245,36 +261,53 @@ export default function RootLayout({
         { title: "Style sportif", link: "/categorie/style-sportif" },
         { title: "Nouveaux talents", link: "/categorie/nouveaux-talents-sport" },
       ],
-    },
-    {
-      title: "Photos",
-      icon: "typcn-image",
-      link: "/categorie/photos",
-      subMenu: [
-        { title: "Galeries photos", link: "/categorie/photos-galeries-photos"},
-        { title: "Clichés exclusifs", link: "/categorie/photos-cliches-exclusifs"},
-        { title: "Moments volés", link: "/categorie/photos-moments-voles"},
-        { title: "Archives people", link: "/categorie/photos-archives-people"},
-      ],
     },    
-    
-    /*{
-      title: "Société",
-      icon: "typcn-world",
-      link: "/categorie/societes",
-    },*/
-
     {
-      title: "Vidéos",
-      icon: "typcn-video",
-      link: "/categorie/videos",
+      title: "Musique",
+      icon: "typcn typcn-image",
+      link: "/categorie/media",
       subMenu: [
+        { title: "Nouveaux singles & albums", link: "/categorie/nouveaux-singles-albums"},
+        { title: "Clips & vidéos musicales", link: "/categorie/clips-videos-musicales"},
+        { title: "Interviews d’artistes", link: "/categorie/interviews-dartistes"},
+        { title: "Concerts & tournées", link: "/categorie/concerts-tournees"},
+        { title: "Top charts & hits du moment", link: "/categorie/top-charts-hits-du-moment"},
+        { title: "Découverte de talents émergents", link: "/categorie/decouverte-de-talents-emergents"},
+      ],
+    },  
+    {
+      title: "Medias",
+      icon: "typcn-image",
+      link: "/categorie/medias",
+      subMenu: [
+        { title: "Galeries photos", link: "/categorie/media-galeries-photos"},
+        { title: "Clichés exclusifs", link: "/categorie/media-cliches-exclusifs"},
+        { title: "Moments volés", link: "/categorie/media-moments-voles"},
+        { title: "Archives people", link: "/categorie/media-archives-people"},
         { title: "Interviews vidéo", link: "/categorie/interviews-video	"},
         { title: "Reportages", link: "/categorie/videos-reportages"},
         { title: "Moments backstage", link: "/categorie/videos-moments-backstage"},
         { title: "Contenu exclusif", link: "/categorie/videos-contenu-exclusif"},
       ],
+    },  
+    
+    /*{
+      title: "Société",
+      icon: "typcn-world",
+      link: "/categorie/societes",
     },
+    
+    {
+      title: "Vidéos",
+      icon: "typcn-video",
+      link: "/categorie/videos",
+      subMenu: [
+        
+      ],
+    },
+    */
+
+    
   ];
 
   const navItems = [
@@ -283,8 +316,8 @@ export default function RootLayout({
     { title: "EVENTS", icon: "typcn-calendar", link: "/categorie/events" },
     { title: "MODE & BEAUTE", icon: "typcn-calendar", link: "/categorie/mode-beaute" },
     { title: "SPORTS", icon: "typcn-flag", link: "/categorie/sport" },    
-    { title: "PHOTOS", icon: "typcn-image", link: "/categorie/photos" },
-    { title: "VIDEOS", icon: "typcn-video", link: "/categorie/videos" },
+    { title: "MEDIAS", icon: "typcn-image", link: "/categorie/medias" },
+    //{ title: "VIDEOS", icon: "typcn-video", link: "/categorie/videos" },
     /*
     { title: "PORTRAITS", icon: "typcn-camera", link: "/categorie/people-portrait" },
     { title: "BONS PLANS", icon: "typcn-star", link: "/categorie/bons-plans" },
@@ -970,10 +1003,8 @@ export default function RootLayout({
                       <nav className="navigation navigation-scroll nav-hov-b" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "10px 0" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "20px", fontSize: 14, fontWeight: 700, fontFamily: "Roboto Slab, sans-serif" }}>
         {navItems.map((item, index) => (
-          <Link key={index} href={item.link} legacyBehavior>
-            <a style={{ display: "flex", alignItems: "center", gap: "5px", textDecoration: "none", color: "inherit" }}>
+          <Link key={index} href={item.link} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
               <i className={`typcn ${item.icon}`} /> {item.title}
-            </a>
           </Link>
         ))}
       </div>
