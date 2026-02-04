@@ -280,7 +280,6 @@ export default function RootLayout({
       icon: "typcn-image",
       link: "/categorie/medias",
       subMenu: [
-        { title: "Galeries photos", link: "/categorie/media-galeries-photos"},
         { title: "Clichés exclusifs", link: "/categorie/media-cliches-exclusifs"},
         { title: "Moments volés", link: "/categorie/media-moments-voles"},
         { title: "Archives people", link: "/categorie/media-archives-people"},

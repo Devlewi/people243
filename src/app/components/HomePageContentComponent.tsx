@@ -212,7 +212,7 @@ const { articles,latestposts,mostviewed } = recapData;
                                       className="typcn typcn-world"
                                       style={{ fontSize: 30 }}
                                     />{" "}
-                                    Société
+                                    People
                                   </span>
                                 </h4>
                               </div>
