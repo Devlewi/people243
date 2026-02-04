@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://www.people243.com.com
-
-# Sitemaps
-Sitemap: https://www.people243.com.com/sitemap.xml
