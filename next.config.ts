@@ -32,32 +32,34 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // 1. Redirige /Home et TOUT ce qui suit (/Home/...) vers l'accueil
+      // 1. Redirection de /home et /Home (insensible à la casse par défaut) vers l'accueil
+      // Le :path* permet de rediriger aussi /home/ (avec slash)
       {
-        source: "/Home/:path*",
+        source: "/home",
         destination: "/",
         permanent: true,
       },
-      // 2. Redirige spécifiquement la catégorie supprimée et ses sous-pages
       {
-        source: "/category/events/:path*",
+        source: "/home/",
         destination: "/",
         permanent: true,
       },
-      // 3. Redirige tous les flux RSS (feed) qui polluent vos logs
-      {
-        source: "/:prefix*/feed",
-        destination: "/",
-        permanent: true,
-      },
-      // 4. Redirige les anciens tags WordPress vers l'accueil
+      // 2. Redirection des tags vers l'accueil
       {
         source: "/tag/:path*",
         destination: "/",
         permanent: true,
       },
+      // 3. Redirection de toutes les catégories vers l'accueil
+      // (On évite de mettre /feed ici pour qu'il reste accessible via le middleware si besoin)
+      {
+        source: "/category/:path*",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
+
 
 };
 
