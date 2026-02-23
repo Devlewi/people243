@@ -144,7 +144,7 @@ export default function RootLayout({
     {
       title: "Musique",
       icon: "typcn typcn-image",
-      link: "/categorie/media",
+      link: "/categorie/musique",
       subMenu: [
         { title: "Nouveaux singles & albums", link: "/categorie/nouveaux-singles-albums"},
         { title: "Clips & vidéos musicales", link: "/categorie/clips-videos-musicales"},
@@ -265,7 +265,7 @@ export default function RootLayout({
     {
       title: "Musique",
       icon: "typcn typcn-image",
-      link: "/categorie/media",
+      link: "/categorie/musique",
       subMenu: [
         { title: "Nouveaux singles & albums", link: "/categorie/nouveaux-singles-albums"},
         { title: "Clips & vidéos musicales", link: "/categorie/clips-videos-musicales"},
@@ -769,7 +769,7 @@ export default function RootLayout({
                   */}
                   
                   <a
-                    href="https://www.instagram.com/peoplecd243/"
+                    href=" https://www.instagram.com/people243.c?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                     className="link service s-instagram"
                     target="_blank"
                     rel="nofollow noopener"
@@ -822,7 +822,7 @@ export default function RootLayout({
                      */}
                      
                   <a
-                    href="https://www.instagram.com/peoplecd243/"
+                    href=" https://www.instagram.com/people243.c?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                     className="link service s-instagram"
                     target="_blank"
                     rel="nofollow noopener"

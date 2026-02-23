@@ -1066,7 +1066,7 @@ export default function Footer() {
 */}
                   
                     <a
-                      href="https://www.instagram.com/peoplecd243/"
+                      href=" https://www.instagram.com/people243.c?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                       className="link service s-instagram"
                       target="_blank"
                       rel="nofollow noopener"

@@ -45,7 +45,7 @@ const LatestPostBonPlanHome: React.FC<LatestPostBonPlanHomeProps> = ({
                                         className="typcn typcn-star"
                                         style={{ fontSize: 30 }}
                                       />{" "}
-                                      Cinéma & Arts
+                                      Musique
                                     </span>{" "}
                                   </h4>
                                 </div>
