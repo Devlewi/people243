@@ -1,0 +1,66 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactStrictMode: false, // Active le mode strict de React pour la détection de bugs en développement
+  images: {    
+    unoptimized: true,//Désactiver l'optimisation d'images
+    remotePatterns: [      
+      {
+        protocol: "https",
+        hostname: "localhost",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "controlpanel.people243.com",
+        pathname: "/wp-content/uploads/**",
+      },        
+
+    ],
+    domains: ['controlpanel.people243.com','localhost','www.people243.com','people243.com','client.cynomedia-africa.com'], // Ajoutez ici le domaine de votre image
+  },
+
+  // D'autres configurations possibles si nécessaire
+  async rewrites() {
+    return [
+      {
+        source: '/api/images/:path*', // Toutes les requêtes qui commencent par '/api/images/'
+        destination: 'https://controlpanel.people243.com/wp-content/uploads/:path*', // Destination vers le serveur WordPress
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      // 1. Redirection de /home et /Home (insensible à la casse par défaut) vers l'accueil
+      // Le :path* permet de rediriger aussi /home/ (avec slash)
+      {
+        source: "/home",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/home/",
+        destination: "/",
+        permanent: true,
+      },
+      // 2. Redirection des tags vers l'accueil
+      {
+        source: "/tag/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      // 3. Redirection de toutes les catégories vers l'accueil
+      // (On évite de mettre /feed ici pour qu'il reste accessible via le middleware si besoin)
+      {
+        source: "/category/:path*",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
+
+
+};
+
+export default nextConfig;
