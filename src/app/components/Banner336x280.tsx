@@ -25,25 +25,37 @@ const Banner336x280: React.FC = () => {
   return (
     <div>
       {/* Affichage de l'iframe publicitaire */}
-      <iframe
-        id="a178c37c"
-        name="a178c37c"
-        src={`https://client.cynomedia-africa.com/www/delivery/afr.php?zoneid=218&cb=${randomNumber}`}
+      
+{/*
+<!-- Revive Adserver iFrame Tag - Generated with Revive Adserver v5.4.1 -->
+<iframe id='a3b9446b' name='a3b9446b' src='https://adserver.cynomedia.com/www/delivery/afr.php?zoneid=218&amp;cb=INSERT_RANDOM_NUMBER_HERE' frameborder='0' scrolling='no' width='336' height='280' allow='autoplay'>
+<a href='https://adserver.cynomedia.com/www/delivery/ck.php?n=ab2be8e9&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'>
+<img src='https://adserver.cynomedia.com/www/delivery/avw.php?zoneid=218&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab2be8e9' border='0' alt='' /></a></iframe>
+
+href='https://adserver.cynomedia.com/www/delivery/ck.php?n=a20175cb&amp;cb=INSERT_RANDOM_NUMBER_HERE'
+*/}
+
+
+<iframe
+        id="a06f9d4f"
+        name="a06f9d4f"
+        src={`https://adserver.cynomedia.com/www/delivery/afr.php?zoneid=218&cb=${randomNumber}`}
         frameBorder="0"
         scrolling="no"
         width="336"
         height="280"
         allow="autoplay"
       >
-        <a href={`https://client.cynomedia-africa.com/www/delivery/ck.php?n=ab1357a3&cb=${randomNumber}`} target="_blank" rel="noopener noreferrer">
+        <a href={`https://adserver.cynomedia.com/www/delivery/ck.php?n=a20175cb&amp&cb=${randomNumber}`} target="_blank" rel="noopener noreferrer">
           <Image
-            src={`https://client.cynomedia-africa.com/www/delivery/avw.php?zoneid=218&cb=${randomNumber}&n=ab1357a3`}
+            src={`https://adserver.cynomedia.com/www/delivery/avw.php?zoneid=218&cb=${randomNumber}&n=a20175cb`}
             width={336}
             height={280}
             alt="Advertisement"
           />
         </a>
       </iframe>
+      
     </div>
   );
 };

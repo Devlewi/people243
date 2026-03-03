@@ -31,13 +31,13 @@ const PubAfterNav = () => {
 <center>
            {/* Affichage conditionnel des publicités selon l'écran */}
            {isMobile ? (
-              <ins data-revive-zoneid="219" data-revive-id="97f3bbebf0ebdc5eed163b8fac6171c8"></ins>
+              <ins data-revive-zoneid="219" data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"></ins>
             ) : (
-              <ins data-revive-zoneid="219" data-revive-id="97f3bbebf0ebdc5eed163b8fac6171c8"></ins>
+              <ins data-revive-zoneid="219" data-revive-id="16a6633e0a24be5cdd88d46adf91ea32"></ins>
             )}
 
             {/* Script Revive Adserver (chargé une seule fois) */}
-            <script async src="//client.cynomedia-africa.com/www/delivery/asyncjs.php"></script>
+            <script async src="//adserver.cynomedia.com/www/delivery/asyncjs.php"></script>
 </center>
       </div>
     )
